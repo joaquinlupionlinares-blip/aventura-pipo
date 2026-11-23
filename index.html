@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>La Aventura de Pipo</title>
+<title>La Aventura de Juanma</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -289,7 +289,7 @@ button.ear{cursor:pointer;color:var(--ink);font-family:var(--f-display)}
 .gin,#nameIn{user-select:text;-webkit-user-select:text}
 .gerr{margin:0;color:var(--berry);font-weight:700}
 /* pintar: el borde no debe sumar ancho (se salía 8 px a 390 px) */
-.paper,.sw{box-sizing:border-box}
+.paper,.sw,.keys8{box-sizing:border-box}
 @keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -303,7 +303,7 @@ button.ear{cursor:pointer;color:var(--ink);font-family:var(--f-display)}
 
 <section id="start" class="screen">
   <div class="hero" id="startPipo"></div>
-  <h1>La Aventura<br>de <span>Pipo</span></h1>
+  <h1>La Aventura<br>de <span>Juanma</span></h1>
   <p>Lengua, Mates, Medio, Inglés, Artística y Música. ¡Y dibujos para colorear e instrumentos para tocar!</p>
   <div class="namebox">
     <label for="nameIn">¿Cómo te llamas?</label>
@@ -467,8 +467,9 @@ let enVoices=[];
 function escore(v){let s=0;if(/natural|neural|online/i.test(v.name))s+=6;if(/google/i.test(v.name))s+=4;if(/en-(GB|US)/i.test((v.lang||'').replace('_','-')))s+=2;return s}
 function loadVoices(){if(!SS)return;const all=SS.getVoices();voices=all.filter(v=>/^es/i.test(v.lang)).sort((a,b)=>vscore(b)-vscore(a));
   enVoices=all.filter(v=>/^en/i.test(v.lang)).sort((a,b)=>escore(b)-escore(a));fillVoices()}
-if(SS){loadVoices();try{SS.addEventListener('voiceschanged',loadVoices)}catch(e){SS.onvoiceschanged=loadVoices}}
+/* curVoice antes de loadVoices: si el navegador ya tiene voces al arrancar (Safari, Firefox, app Android), fillVoices la usa */
 const curVoice=()=>voices.find(v=>v.name===S.voice)||voices[0]||null;
+if(SS){loadVoices();try{SS.addEventListener('voiceschanged',loadVoices)}catch(e){SS.onvoiceschanged=loadVoices}}
 const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function showBubble(t){const h=esc(t).replace(/«([^»]+)»|\[\[(.+?)\]\]/g,(m,a,b)=>`<mark class="tw">${a||b}</mark>`);$$('.bubble').forEach(b=>b.innerHTML=h)}
 /* [[palabra]] se pronuncia con voz inglesa */

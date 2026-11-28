@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nico y Alba · prueba 3D</title>
+<style>
+  html, body { margin: 0; background: #CDEBFF; color: #22306B; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  .escena { display: flex; gap: 12px; justify-content: center; }
+  .pj { flex: 1 1 0; max-width: 420px; }
+  .lienzo { width: 100%; height: min(62vh, 460px); }
+  .nombre { text-align: center; font-weight: 700; margin: 4px 0 0; }
+  .botones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+  button { font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 14px; border: 2px solid #22306B;
+           background: #fff; color: #22306B; cursor: pointer; min-width: 44px; min-height: 44px; }
+  button[aria-pressed="true"] { background: #22306B; color: #fff; }
+  #aviso { text-align: center; font-weight: 700; }
+  #info { text-align: center; font-size: 13px; opacity: .8; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Nico y Alba · gestos</h1>
+  <div class="escena">
+    <div class="pj"><div id="nico" class="lienzo"></div><p class="nombre">Nico</p></div>
+    <div class="pj"><div id="alba" class="lienzo"></div><p class="nombre">Alba</p></div>
+  </div>
+  <div class="botones" id="estados"></div>
+  <div class="botones">
+    <button id="habla" aria-pressed="false">Mover la boca (hablar)</button>
+    <button id="calma" aria-pressed="false">Modo calma</button>
+  </div>
+  <p id="aviso"></p>
+  <p id="info"></p>
+</main>
+<script src="../vendor/three.min.js"></script>
+<script src="personajes3d.js"></script>
+<script>
+(function () {
+  // ?vacio=1 deja la página sin personajes (lo usa el script de capturas)
+  if (/[?&]vacio=1/.test(location.search)) return;
+  var nombres = { saludo: 'Saludo', espera: 'Espera', habla: 'Habla', explica: 'Explica',
+                  animo: 'Ánimo', celebra: 'Celebra', despedida: 'Despedida', pensando: 'Pensando' };
+  var pjs = [Personajes3D.crear(document.getElementById('nico'), 'nico'),
+             Personajes3D.crear(document.getElementById('alba'), 'alba')].filter(Boolean);
+  if (!pjs.length) {
+    document.getElementById('aviso').textContent = 'Este dispositivo no tiene WebGL: el juego tendría que usar los dibujos planos.';
+    return;
+  }
+  document.getElementById('info').textContent = 'Mallas: ' + pjs.map(function (p) { return p.info.mallas; }).join(' / ');
+  var caja = document.getElementById('estados');
+  Personajes3D.estados.forEach(function (e) {
+    var b = document.createElement('button');
+    b.textContent = nombres[e];
+    b.onclick = function () { pjs.forEach(function (p) { p.estado(e); }); };
+    caja.appendChild(b);
+  });
+  function interruptor(id, fn) {
+    var b = document.getElementById(id);
+    b.onclick = function () {
+      var si = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', String(si));
+      pjs.forEach(function (p) { fn(p, si); });
+    };
+  }
+  interruptor('habla', function (p, si) { p.hablar(si); });
+  interruptor('calma', function (p, si) { p.calma(si); });
+})();
+</script>
+</body>
+</html>

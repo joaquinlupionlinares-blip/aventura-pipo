@@ -10,7 +10,7 @@
   h1 { font-size: 20px; margin: 0 0 8px; }
   .escena { display: flex; gap: 12px; justify-content: center; }
   .pj { flex: 1 1 0; max-width: 420px; }
-  .lienzo { width: 100%; height: min(62vh, 460px); }
+  .lienzo { width: 100%; height: min(62vh, 460px); border-radius: 16px; overflow: hidden; }
   .nombre { text-align: center; font-weight: 700; margin: 4px 0 0; }
   .botones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
   button { font: inherit; font-size: 16px; padding: 10px 14px; border-radius: 14px; border: 2px solid #22306B;
@@ -31,25 +31,37 @@
   <div class="botones">
     <button id="habla" aria-pressed="false">Mover la boca (hablar)</button>
     <button id="calma" aria-pressed="false">Modo calma</button>
+    <button id="fondo" aria-pressed="false">Fondo de prueba</button>
   </div>
   <p id="aviso"></p>
   <p id="info"></p>
 </main>
 <script src="../vendor/three.min.js"></script>
-<script src="personajes3d.js"></script>
+<script>
+  // ?v=1 carga la versión anterior (estilo juguete) para comparar
+  document.write('<script src="personajes3d' + (/[?&]v=1/.test(location.search) ? '-v1' : '') + '.js"><\/script>');
+</script>
 <script>
 (function () {
   // ?vacio=1 deja la página sin personajes (lo usa el script de capturas)
   if (/[?&]vacio=1/.test(location.search)) return;
   var nombres = { saludo: 'Saludo', espera: 'Espera', habla: 'Habla', explica: 'Explica',
                   animo: 'Ánimo', celebra: 'Celebra', despedida: 'Despedida', pensando: 'Pensando' };
-  var pjs = [Personajes3D.crear(document.getElementById('nico'), 'nico'),
-             Personajes3D.crear(document.getElementById('alba'), 'alba')].filter(Boolean);
-  if (!pjs.length) {
-    document.getElementById('aviso').textContent = 'Este dispositivo no tiene WebGL: el juego tendría que usar los dibujos planos.';
-    return;
+  var pjs = [], opciones = {}, hablando = false, calma = false;
+  function crearTodos() {
+    pjs.forEach(function (p) { p.destruir(); });
+    pjs = [Personajes3D.crear(document.getElementById('nico'), 'nico', opciones),
+           Personajes3D.crear(document.getElementById('alba'), 'alba', opciones)].filter(Boolean);
+    pjs.forEach(function (p) { p.hablar(hablando); p.calma(calma); });
+    if (!pjs.length) {
+      document.getElementById('aviso').textContent = 'Este dispositivo no tiene WebGL: el juego tendría que usar los dibujos planos.';
+      return;
+    }
+    document.getElementById('info').textContent = pjs.map(function (p) {
+      return p.info.mallas + ' mallas' + (p.info.triangulos ? ' · ' + p.info.triangulos + ' triángulos' : '');
+    }).join('  /  ');
   }
-  document.getElementById('info').textContent = 'Mallas: ' + pjs.map(function (p) { return p.info.mallas; }).join(' / ');
+  crearTodos();
   var caja = document.getElementById('estados');
   Personajes3D.estados.forEach(function (e) {
     var b = document.createElement('button');
@@ -62,11 +74,13 @@
     b.onclick = function () {
       var si = b.getAttribute('aria-pressed') !== 'true';
       b.setAttribute('aria-pressed', String(si));
-      pjs.forEach(function (p) { fn(p, si); });
+      fn(si);
     };
   }
-  interruptor('habla', function (p, si) { p.hablar(si); });
-  interruptor('calma', function (p, si) { p.calma(si); });
+  interruptor('habla', function (si) { hablando = si; pjs.forEach(function (p) { p.hablar(si); }); });
+  interruptor('calma', function (si) { calma = si; pjs.forEach(function (p) { p.calma(si); }); });
+  interruptor('fondo', function (si) { opciones = si ? { fondo: 'fondo-prueba.png' } : {}; crearTodos(); });
+  if (/[?&]fondo=1/.test(location.search)) document.getElementById('fondo').click();
 })();
 </script>
 </body>

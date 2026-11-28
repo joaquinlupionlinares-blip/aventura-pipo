@@ -1,0 +1,21 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'es.aventurapipo.app'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'es.aventurapipo.app'
+        minSdk 24
+        targetSdk 36
+        versionCode 2
+        versionName '1.1'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}

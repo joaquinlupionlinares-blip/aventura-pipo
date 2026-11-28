@@ -4,7 +4,7 @@
   if(!window.AndroidTTS)return;
   var T=window.AndroidTTS,n=0,map={},live=0,hooks=[];
   function V(name,lang){return{name:name,lang:lang,voiceURI:name,localService:true,default:false}}
-  var voices=[V('Voz del móvil (español)','es-ES'),V('Voz del móvil (inglés)','en-US')];
+  var voices=[V('Voz de Pipo (español)','es-ES'),V('Voz del sistema (inglés)','en-US')];
   window.SpeechSynthesisUtterance=function(t){this.text=t==null?'':String(t);this.lang='';this.voice=null;this.rate=1;this.pitch=1;this.volume=1;this.onend=null;this.onerror=null;this.onstart=null};
   window.__ttsEvent=function(id,ev){var u=map[id];if(!u)return;delete map[id];live=Math.max(0,live-1);
     var f=ev==='error'?(u.onerror||u.onend):u.onend;try{if(f)f({type:ev,utterance:u})}catch(e){}};
@@ -21,8 +21,10 @@
   window.__back=function(){
     var q=function(s){return document.querySelector(s)};
     if(q('#gate:not([hidden])')){q('#gateNo').click();return true}
-    if(q('#settings:not([hidden])')){q('#closeSet').click();return true}
-    if(q('#win:not([hidden])')||q('#newChar:not([hidden])'))return true;
+    if(q('#newChar:not([hidden])')){q('#newChar').click();return true}
+    if(q('#win:not([hidden])')){q('#winHome').click();return true}
+    if(q('#adult:not([hidden])')){q('#adultBack').click();return true}
+    if(q('#bye:not([hidden])')){q('#byeBack').click();return true}
     var b=q('#game:not([hidden]) #gBack')||q('.screen:not([hidden]) [data-go="home"]');
     if(b){b.click();return true}
     return false};

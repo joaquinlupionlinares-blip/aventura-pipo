@@ -1,7 +1,7 @@
 // Prepara app/src/main/assets (juego + voz + fuentes) y los iconos a partir del HTML del juego.
 const fs=require('fs'),path=require('path');
-const {chromium}=require('C:/Users/GAMER/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright');
-const SRC=path.resolve(__dirname,'..','pipo4.html'),A=path.join(__dirname,'app/src/main/assets'),RES=path.join(__dirname,'app/src/main/res');
+const {chromium}=require(process.env.PLAYWRIGHT||'C:/Users/GAMER/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright');
+const SRC=path.resolve(__dirname,'..','index.html'),A=path.join(__dirname,'app/src/main/assets'),RES=path.join(__dirname,'app/src/main/res');
 fs.mkdirSync(path.join(A,'fonts'),{recursive:true});
 (async()=>{
   let h=fs.readFileSync(SRC,'utf8');
@@ -25,7 +25,7 @@ fs.mkdirSync(path.join(A,'fonts'),{recursive:true});
   // 3) iconos desde el dibujo de Pipo del propio juego
   const b=await chromium.launch(),p=await b.newPage();
   await p.goto('file:///'+SRC.replace(/\\/g,'/'));await p.waitForSelector('#startPipo svg');
-  const svg=await p.$eval('#startPipo',e=>e.innerHTML);
+  const svg=(await p.$eval('#startPipo',e=>e.innerHTML)).replace(/data-s="[a-z]+"/,'data-s="espera"');   /* icono: Pipo tranquilo */
   const page=(bg,shape,scale)=>`<html><body style="margin:0;background:transparent"><div id="i" style="width:100vw;height:100vh;display:grid;place-items:center;${bg?`background:${bg};`:''}${shape}">
     <div style="width:${scale}%;height:${scale}%">${svg.replace('<svg ','<svg width="100%" height="100%" ')}</div></div></body></html>`;
   const D={mdpi:1,hdpi:1.5,xhdpi:2,xxhdpi:3,xxxhdpi:4};

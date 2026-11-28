@@ -1,0 +1,134 @@
+{
+ "FRASES": [
+  [
+   "saludo",
+   "¡Hola, Juanma! ¿Seguimos nuestra aventura?"
+  ],
+  [
+   "instruccion",
+   "Toca el grupo que tiene tres manzanas."
+  ],
+  [
+   "pista",
+   "Vamos a contarlas juntos: una, dos y tres."
+  ],
+  [
+   "celebracion",
+   "¡Muy bien! Has encontrado todas las vocales."
+  ]
+ ],
+ "VOCES": [
+  {
+   "id": "davefx",
+   "nombre": "davefx (hombre)",
+   "modelo": "es_ES-davefx-medium.onnx",
+   "licencia": "CC0 (dominio público)"
+  },
+  {
+   "id": "sharvard-mujer",
+   "nombre": "sharvard (mujer)",
+   "modelo": "es_ES-sharvard-medium.onnx",
+   "speaker": 1,
+   "licencia": "CC BY 3.0 (citar la fuente)"
+  },
+  {
+   "id": "sharvard-hombre",
+   "nombre": "sharvard (hombre)",
+   "modelo": "es_ES-sharvard-medium.onnx",
+   "speaker": 0,
+   "licencia": "CC BY 3.0 (citar la fuente)"
+  }
+ ],
+ "AJUSTES": [
+  "--length_scale",
+  "1.08",
+  "--sentence_silence",
+  "0.35"
+ ],
+ "res": [
+  {
+   "voz": "davefx",
+   "frase": "saludo",
+   "f": "davefx-saludo.wav",
+   "seg": 3.75,
+   "ms": 2393
+  },
+  {
+   "voz": "davefx",
+   "frase": "instruccion",
+   "f": "davefx-instruccion.wav",
+   "seg": 2.96,
+   "ms": 1759
+  },
+  {
+   "voz": "davefx",
+   "frase": "pista",
+   "f": "davefx-pista.wav",
+   "seg": 3.98,
+   "ms": 1637
+  },
+  {
+   "voz": "davefx",
+   "frase": "celebracion",
+   "f": "davefx-celebracion.wav",
+   "seg": 4.65,
+   "ms": 1910
+  },
+  {
+   "voz": "sharvard-mujer",
+   "frase": "saludo",
+   "f": "sharvard-mujer-saludo.wav",
+   "seg": 3.34,
+   "ms": 1809
+  },
+  {
+   "voz": "sharvard-mujer",
+   "frase": "instruccion",
+   "f": "sharvard-mujer-instruccion.wav",
+   "seg": 2.53,
+   "ms": 1421
+  },
+  {
+   "voz": "sharvard-mujer",
+   "frase": "pista",
+   "f": "sharvard-mujer-pista.wav",
+   "seg": 3.06,
+   "ms": 1480
+  },
+  {
+   "voz": "sharvard-mujer",
+   "frase": "celebracion",
+   "f": "sharvard-mujer-celebracion.wav",
+   "seg": 3.2,
+   "ms": 1862
+  },
+  {
+   "voz": "sharvard-hombre",
+   "frase": "saludo",
+   "f": "sharvard-hombre-saludo.wav",
+   "seg": 3.42,
+   "ms": 1910
+  },
+  {
+   "voz": "sharvard-hombre",
+   "frase": "instruccion",
+   "f": "sharvard-hombre-instruccion.wav",
+   "seg": 2.56,
+   "ms": 1491
+  },
+  {
+   "voz": "sharvard-hombre",
+   "frase": "pista",
+   "f": "sharvard-hombre-pista.wav",
+   "seg": 3.21,
+   "ms": 1971
+  },
+  {
+   "voz": "sharvard-hombre",
+   "frase": "celebracion",
+   "f": "sharvard-hombre-celebracion.wav",
+   "seg": 3.46,
+   "ms": 2095
+  }
+ ]
+}

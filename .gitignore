@@ -8,3 +8,4 @@ android/app/src/main/res/
 node_modules/
 tests/out/
 *.apk
+tests/out/

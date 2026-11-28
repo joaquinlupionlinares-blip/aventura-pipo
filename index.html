@@ -49,7 +49,7 @@ h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.0
 /* start */
 #start{align-items:center;text-align:center;gap:14px}
 #start>:first-child{margin-top:auto}#start>:last-child{margin-bottom:auto}
-#start .hero{width:min(52vw,220px,30vh);aspect-ratio:1;max-width:100%;animation:bob 2.4s ease-in-out infinite}
+#start .hero{width:min(52vw,220px,30vh);aspect-ratio:1;max-width:100%;animation:bob 2.4s ease-in-out 3}
 #start h1{font-size:clamp(40px,11vw,64px);color:var(--ink);letter-spacing:.01em}
 #start h1 span{color:var(--berry)}
 #start p{margin:0;font-size:19px;max-width:30ch}
@@ -297,42 +297,174 @@ button.ear{cursor:pointer;color:var(--ink);font-family:var(--f-display)}
 @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
 @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+/* ===== rediseño para 5-7 años: botones grandes con palabra, una acción principal por pantalla ===== */
+.ic{width:64px;height:64px;gap:0;align-content:center;font-family:var(--f-display);font-weight:800}
+.ic svg{width:26px;height:26px}
+.ic small{display:block;font:800 11px/1.1 var(--f-display)}
+.ic.help{font-size:24px;line-height:1}
+.ic.help.nudge{background:var(--sunL);animation:pulse 1.2s ease-in-out 3}
+.bar h2{font-size:clamp(22px,6vw,34px);overflow-wrap:anywhere}
+.btn.big{font-size:30px;padding:14px 36px;min-height:80px}
+.linkbtn{background:none;border:0;color:var(--soft);font:700 17px var(--f-read);text-decoration:underline;min-height:48px;padding:8px 12px}
+/* Pipo, el guía */
+.pipo{display:block;width:100%;height:100%;overflow:visible}
+.pipo *{transform-box:view-box}
+.pipo .pp-all{transform-origin:100px 190px}
+.pipo .pp-arm-l{transform-origin:40px 108px;transition:transform .35s ease}
+.pipo .pp-arm-r{transform-origin:160px 108px;transition:transform .35s ease}
+.pipo .pp-eyes{transform-origin:100px 84px;animation:pp-blink 6s infinite}
+.pipo .pp-eyes-h,.pipo .pp-mo,.pipo .pp-brow{display:none}
+.pipo .pp-mo{transform-origin:100px 116px}
+.pipo[data-s="espera"] .pp-all{animation:pp-breath 4s ease-in-out 3}
+.pipo[data-talk="1"] .pp-ms{display:none}
+.pipo[data-talk="1"] .pp-mo{display:inline;animation:pp-talk .3s ease-in-out infinite alternate}
+.pipo[data-s="saludo"] .pp-arm-r,.pipo[data-s="despedida"] .pp-arm-r{transform:rotate(-140deg);animation:pp-wave .5s ease-in-out 4 alternate}
+.pipo[data-s="despedida"] .pp-eyes,.pipo[data-s="celebra"] .pp-eyes{display:none}
+.pipo[data-s="despedida"] .pp-eyes-h,.pipo[data-s="celebra"] .pp-eyes-h{display:inline}
+.pipo[data-s="explica"] .pp-arm-r{transform:rotate(-95deg)}
+.pipo[data-s="animo"] .pp-arm-r{transform:rotate(-50deg)}.pipo[data-s="animo"] .pp-arm-l{transform:rotate(50deg)}
+.pipo[data-s="animo"] .pp-brow{display:inline}
+.pipo[data-s="celebra"] .pp-arm-r{transform:rotate(-150deg)}
+.pipo[data-s="celebra"] .pp-arm-l{transform:rotate(150deg)}
+.pipo[data-s="celebra"] .pp-all{animation:pp-jump .45s ease 2}
+.pipo[data-s="celebra"] .pp-ms{display:none}
+.pipo[data-s="celebra"] .pp-mo{display:inline}
+@keyframes pp-breath{50%{transform:scale(1.015,.985)}}
+@keyframes pp-blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes pp-talk{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+@keyframes pp-wave{from{transform:rotate(-120deg)}to{transform:rotate(-160deg)}}
+@keyframes pp-jump{50%{transform:translateY(-14px)}}
+/* entrada: perfiles con avatar */
+#start .hero{width:min(46vw,190px,26vh)}
+.who{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.who-card{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--paper);border:4px solid var(--ink);border-radius:24px;box-shadow:0 6px 0 var(--ink);padding:8px 16px;min-width:120px;min-height:120px}
+.who-card svg{width:76px;height:76px}
+.who-card b{font-family:var(--f-display);font-size:22px;line-height:1}
+.who-card.on{background:var(--sunL);outline:4px solid var(--berry);outline-offset:3px}
+.who-empty{margin:0;font-weight:700;font-size:19px;max-width:28ch}
+/* inicio: la siguiente aventura, bien grande */
+.nextcard{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--sunL);border:4px solid var(--ink);border-radius:28px;box-shadow:0 7px 0 var(--ink);padding:12px 14px;min-height:110px;transition:transform .08s,box-shadow .08s}
+.nextcard:active{transform:translateY(4px);box-shadow:0 3px 0 var(--ink)}
+.nx-ico{flex:none;width:70px;height:70px;border-radius:20px;border:3px solid var(--ink);background:var(--c);display:grid;place-items:center;font:700 22px var(--f-read);text-align:center;line-height:1.05}
+.nx-tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.15}
+.nx-tx small{font:700 14px var(--f-read);color:var(--soft)}
+.nx-tx b{font:800 clamp(20px,5.6vw,26px) var(--f-display)}
+.nx-tx span{font-weight:700;font-size:17px}
+.nx-go{flex:none;width:76px;height:76px;border-radius:50%;background:var(--leaf);color:#fff;border:4px solid var(--ink);display:grid;place-items:center;align-content:center;font:800 26px/1 var(--f-display)}
+.nx-go small{font-size:14px}
+.homefoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:8px}
+.btn.bye{font-size:19px;min-height:64px}
+/* asignatura: cada tema es una tarjeta con «Jugar»; los niveles, opcionales */
+.tcard{background:var(--paper);border:4px solid var(--ink);border-radius:24px;box-shadow:0 6px 0 var(--ink);padding:10px;display:flex;flex-direction:column;gap:10px}
+.tplay{display:flex;align-items:center;gap:10px;background:var(--c);border:3px solid var(--ink);border-radius:18px;padding:10px 12px;min-height:72px;text-align:left;font:inherit;color:var(--ink)}
+.tp-n{flex:1;min-width:0;font:800 clamp(19px,5.4vw,22px)/1.1 var(--f-display)}
+.tp-p{font-weight:700;font-size:14px;white-space:nowrap}
+.tp-go{flex:none;background:var(--leaf);color:#fff;border:3px solid var(--ink);border-radius:999px;padding:8px 14px;font:800 18px var(--f-display)}
+.tlv{display:flex;flex-wrap:wrap;gap:8px}
+.tlv .lvl{flex-direction:column;justify-content:center;gap:2px;width:64px;min-height:70px;padding:4px;border-radius:18px;box-shadow:0 4px 0 var(--ink);border-width:3px;text-align:center}
+.tlv .lvl .num{width:auto;height:auto;border:0;background:none;font-size:22px}
+.tlv .lvl .ls{font-size:13px;letter-spacing:0}
+/* partida: ayudas que no dependen solo del color */
+.opt{position:relative}
+.opt.bad::after{content:"✗";position:absolute;top:2px;right:8px;font:800 22px var(--f-display);color:var(--berry)}
+.opt.good::after{content:"✓";position:absolute;top:2px;right:8px;font:800 22px var(--f-display);color:#fff}
+.opt.aqui{outline:5px solid var(--sun);outline-offset:3px;animation:pulse 1s ease-in-out 4;z-index:1}
+.opt.aqui::before{content:"👆";position:absolute;bottom:-18px;right:-4px;font-size:36px;line-height:1}
+.dots i{display:grid;place-items:center}
+.dots i.on::after{content:"✓";font:800 11px/1 var(--f-display);color:var(--ink)}
+.tstart.blink{animation:pulse .6s ease-in-out 4;transform-box:fill-box;transform-origin:center}
+/* fin de aventura */
+.panel.win{gap:10px}
+.winpipo{width:120px;height:120px}
+.winsub,.winstars{margin:0;font-weight:700;font-size:18px}
+.friendbar{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;font-size:16px}
+.friendbar .slots3{display:flex;gap:6px;font-size:28px;line-height:1}
+.panel.win .row .btn{font-size:19px}
+.btn.go2{background:var(--leaf);color:#fff}
+/* despedida */
+#bye{align-items:center;justify-content:center;text-align:center;gap:14px}
+#bye>:first-child{margin-top:auto}#bye>:last-child{margin-bottom:auto}
+#bye .hero{width:min(52vw,220px,32vh);aspect-ratio:1}
+.byesum{margin:0;font-size:20px;font-weight:700;max-width:26ch}
+/* área para mayores */
+.adult{display:flex;flex-direction:column;gap:14px;padding-bottom:16px}
+.acard{background:var(--paper);border:3px solid var(--ink);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.acard h3{font-size:22px}
+.acard label,.acard .lbl{font-weight:700;font-size:16px}
+.acard select,.acard input[type=text]{font:inherit;font-size:17px;padding:8px;border:3px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink);width:100%;user-select:text;-webkit-user-select:text}
+.acard input[type=range]{width:100%;accent-color:var(--grape)}
+.sw-row{display:flex;align-items:center;gap:10px;min-height:44px}
+.sw-row input{width:26px;height:26px;accent-color:var(--grape)}
+.btn.sm{font-size:17px;padding:8px 14px;box-shadow:0 4px 0 var(--ink);border-width:3px;min-height:48px}
+.btn.danger{background:var(--berryL)}
+.arow{display:flex;align-items:center;gap:10px;min-height:56px}
+.arow .av svg{width:48px;height:48px;display:block}
+.arow b{flex:1;min-width:0;font-size:18px}
+.arow small{color:var(--soft);font-weight:700}
+.pform{display:flex;flex-direction:column;gap:8px;border-top:3px dashed var(--ghost);padding-top:10px}
+.avpick{display:flex;flex-wrap:wrap;gap:6px}
+.avb{width:64px;height:64px;border:3px solid var(--ink);border-radius:16px;background:var(--paper);padding:2px}
+.avb.on{background:var(--sun)}
+.avb svg{width:100%;height:100%;display:block}
+.ptable{width:100%;border-collapse:collapse;font-size:15px}
+.ptable td,.ptable th{padding:5px 6px;border-bottom:1px solid var(--ghost);text-align:left;vertical-align:top}
+.ptable td.n{text-align:right;font-variant-numeric:tabular-nums}
+.drw{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.drw figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.drw svg{width:100%;max-width:110px;aspect-ratio:1;border:2px solid var(--ghost);border-radius:12px}
+/* pintar */
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mode{min-height:64px;min-width:64px}
+@media (max-width:480px){.palette{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* revisión de capturas: que nada se encoja ni se corte */
+.nextcard,.tcard,.who,.homefoot,.tools{flex:none}
+.nx-tx small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tools .mode{font-size:16px;padding:6px 10px}
+@media (max-width:360px){.nx-ico{width:56px;height:56px;font-size:18px}.nx-go{width:64px;height:64px}.wcard .nm{font-size:19px}}
+/* móvil en horizontal: actividad y respuestas lado a lado, sin tener que desplazarse */
+@media (orientation:landscape) and (max-height:520px){
+  #game{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);column-gap:12px;row-gap:8px}
+  #game>.bar{grid-column:1/-1}#game>.dots{grid-column:1}#game>.guide{grid-column:2;grid-row:2}
+  #game>.stage{grid-column:1;min-height:0}#game>.pad{grid-column:2;align-content:center}
+  #game .mini{width:48px;height:48px}#game .bubble{font-size:15px}
+  .hero-letter .lt{font-size:clamp(56px,24vh,120px)}.emoji-big{font-size:clamp(48px,20vh,110px)}.word{font-size:clamp(30px,10vh,60px)}
+}
+/* movimiento reducido elegido por un adulto */
+html.calma *,html.calma *::before,html.calma *::after{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:380px){.opt{min-height:86px}.mini{width:54px;height:54px}.bubble{font-size:15px}.lvl .prize{width:42px;height:42px}}
+@media (max-width:380px){.opt{min-height:86px}.mini{width:64px;height:64px}.bubble{font-size:15px}.lvl .prize{width:42px;height:42px}}
 </style>
 
 <section id="start" class="screen">
   <div class="hero" id="startPipo"></div>
   <h1>La Aventura<br>de <span>Juanma</span></h1>
-  <p>Lengua, Mates, Medio, Inglés, Artística y Música. ¡Y dibujos para colorear e instrumentos para tocar!</p>
-  <div class="namebox">
-    <label for="nameIn">¿Cómo te llamas?</label>
-    <input id="nameIn" type="text" maxlength="14" autocomplete="off" placeholder="Tu nombre">
-  </div>
-  <div class="gpick" role="group" aria-label="¿Chico o chica?"><button class="btn gbtn" type="button" data-g="o">Soy chico</button><button class="btn gbtn" type="button" data-g="a">Soy chica</button></div>
-  <button class="btn go" id="goBtn">¡A jugar!</button>
+  <div class="who" id="who"></div>
+  <button class="btn go big" id="goBtn" type="button">▶ ¡Jugar!</button>
+  <button class="linkbtn" id="adultBtn" type="button">⚙ Para mayores</button>
 </section>
 
 <section id="home" class="screen" hidden>
   <div class="top">
     <div class="guide"><button class="mini pipo-btn" aria-label="Pipo cuenta un chiste"></button><p class="bubble"></p></div>
     <div class="starcount" id="starCount">★ 0</div>
-    <button class="ic" id="gear" aria-label="Ajustes para mayores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></button>
   </div>
+  <button class="nextcard" id="nextBtn" type="button"></button>
+  <h3 class="th">O elige</h3>
   <div class="worlds" id="worlds"></div>
+  <div class="homefoot"><button class="btn bye" id="byeBtn" type="button">👋 Terminar por hoy</button><button class="ic" id="gear" type="button" aria-label="Para mayores">⚙<small>Mayores</small></button></div>
 </section>
 
 <section id="levels" class="screen" hidden>
-  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button><h2 id="lvTitle"></h2></div>
+  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Inicio</small></button><h2 id="lvTitle"></h2></div>
   <div class="guide"><button class="mini pipo-btn" aria-label="Pipo cuenta un chiste"></button><p class="bubble"></p></div>
   <div class="lvls" id="lvls"></div>
 </section>
 
 <section id="game" class="screen" hidden>
   <div class="bar">
-    <button class="ic" id="gBack" aria-label="Salir del nivel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button>
+    <button class="ic" id="gBack" aria-label="Salir de la aventura"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Salir</small></button>
     <div class="gtitle"><b id="gWorld"></b><span id="gLevel"></span></div>
-    <button class="ic" id="gSay" aria-label="Escuchar otra vez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+    <button class="ic" id="gSay" aria-label="Escuchar otra vez"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg><small>Repetir</small></button><button class="ic help" id="gHelp" type="button" aria-label="Pista"><span aria-hidden="true">💡</span><small>Pista</small></button>
   </div>
   <div class="dots" id="dots"></div>
   <div class="guide"><button class="mini pipo-btn" aria-label="Pipo"></button><p class="bubble"></p></div>
@@ -342,39 +474,40 @@ button.ear{cursor:pointer;color:var(--ink);font-family:var(--f-display)}
 
 <section id="paint" class="screen" hidden>
   <div class="bar">
-    <button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button>
+    <button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Inicio</small></button>
     <h2>Pintar</h2>
-    <div class="modes">
-      <button class="btn mode on" id="mFill">Rellenar</button>
-      <button class="btn mode" id="mBrush">Pincel</button>
-    </div>
   </div>
   <div class="picker" id="picker"></div>
   <div class="paper" id="paper"><div id="paintSvg"></div><canvas id="brush"></canvas></div>
+  <div class="tools"><button class="btn mode on" id="mFill" type="button">🪣 Rellenar</button><button class="btn mode" id="mBrush" type="button">🖌️ Pincel</button><button class="btn mode" id="pUndo" type="button">↩️ Deshacer</button></div>
   <div class="palette" id="palette"></div>
-  <div class="row"><button class="btn" id="pClear">Borrar todo</button></div>
+  <div class="row"><button class="btn" id="pClear" type="button">🧽 Borrar todo</button></div>
 </section>
 
 <section id="instr" class="screen" hidden>
-  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button><h2>Instrumentos</h2><button class="btn mode" id="iDemo" type="button">🎶 Pipo toca</button></div>
+  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Inicio</small></button><h2>Instrumentos</h2></div>
   <div class="guide"><button class="mini pipo-btn" aria-label="Pipo cuenta un chiste"></button><p class="bubble"></p></div>
   <div class="ipick" id="ipick"></div>
+  <div class="row"><button class="btn mode" id="iDemo" type="button">🎶 Pipo toca</button></div>
   <div class="iarea" id="iarea"></div>
 </section>
 
 <section id="album" class="screen" hidden>
-  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></button><h2>Mis personajes</h2></div>
+  <div class="bar"><button class="ic" data-go="home" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Inicio</small></button><h2>Mis personajes</h2></div>
   <div class="album-grid" id="albumGrid"></div>
 </section>
 
 <div class="overlay" id="win" hidden>
-  <div class="panel">
-    <h2 id="winT">¡Nivel superado!</h2>
-    <div class="bigstars" id="winS"><span>★</span><span>★</span><span>★</span></div>
-    <div class="row">
-      <button class="btn" id="winAgain">Otra vez</button>
-      <button class="btn go" id="winNext">¡Seguir!</button>
-    </div>
+  <div class="panel win">
+    <div class="winpipo" id="winPipo"></div>
+    <h2 id="winT">¡Aventura superada!</h2>
+    <p class="winsub" id="winSub"></p>
+    <div class="bigstars" id="winS" aria-hidden="true"><span>★</span><span>★</span><span>★</span></div>
+    <p class="winstars" id="winStars"></p>
+    <div class="friendbar" id="winFriend"></div>
+    <button class="btn go big" id="winNext" type="button">Siguiente</button>
+    <div class="row"><button class="btn" id="winAgain" type="button">↻ Repetir</button><button class="btn" id="winHome" type="button">🏠 Inicio</button></div>
+    <button class="linkbtn" id="winBye" type="button">👋 Terminar por hoy</button>
   </div>
 </div>
 
@@ -397,24 +530,17 @@ button.ear{cursor:pointer;color:var(--ink);font-family:var(--f-display)}
   </form>
 </div>
 
-<div class="overlay" id="settings" hidden>
-  <div class="panel">
-    <h2>Para mayores</h2>
-    <div class="set">
-      <label for="voiceSel">Voz</label>
-      <select id="voiceSel"></select>
-      <p class="note" id="voiceNote">Las voces con «Natural», «Online» o «Google» en el nombre suenan menos a robot.</p>
-    </div>
-    <div class="set"><label for="rateIn">Velocidad</label><input id="rateIn" type="range" min="0.7" max="1.3" step="0.05"></div>
-    <div class="set"><label for="pitchIn">Tono (más alto = más gracioso)</label><input id="pitchIn" type="range" min="0.8" max="1.6" step="0.05"></div>
-    <div class="set"><span class="lbl">¿Chico o chica?</span><div class="gpick" role="group" aria-label="¿Chico o chica?"><button class="btn gbtn" type="button" data-g="o">Soy chico</button><button class="btn gbtn" type="button" data-g="a">Soy chica</button></div></div>
-    <div class="row">
-      <button class="btn" id="testVoice">Probar voz</button>
-      <button class="btn" id="resetBtn">Borrar progreso</button>
-    </div>
-    <button class="btn go" id="closeSet">Listo</button>
-  </div>
-</div>
+<section id="adult" class="screen" hidden>
+  <div class="bar"><button class="ic" id="adultBack" type="button" aria-label="Volver al juego"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><small>Volver</small></button><h2>Para mayores</h2></div>
+  <div class="adult" id="adultBody"></div>
+</section>
+
+<section id="bye" class="screen" hidden>
+  <div class="hero" id="byePipo"></div>
+  <h2 id="byeT">¡Hasta pronto!</h2>
+  <p class="byesum" id="byeSum"></p>
+  <button class="btn" id="byeBack" type="button">Volver a jugar</button>
+</section>
 
 <canvas id="fx"></canvas>
 
@@ -429,14 +555,29 @@ const sample=(a,n)=>shuffle(a).slice(0,n);
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const INK='#22306B', NS='http://www.w3.org/2000/svg';
 
-/* ---------- guardado (solo en este móvil) ---------- */
-const KEY='pipo-aventura-v2';
-let S={stars:{},name:'',colors:{},voice:'',rate:1,pitch:1.2,g:'o'};
-try{const t=localStorage.getItem(KEY)||localStorage.getItem('pipo-aventura-v1');if(t){const o=JSON.parse(t);S=Object.assign(S,o);
-  if(!localStorage.getItem(KEY)){['p0','p1','p2','p3'].forEach(k=>delete S.stars[k]);S.colors={}}}}catch(e){}
+/* ---------- perfiles y guardado (solo en este dispositivo) ----------
+   'pipo-perfiles-v1' = {list:[{id,name,say,av,g}], cur, cfg}. El perfil 'p1' sigue usando las claves
+   de siempre ('pipo-aventura-v2' y 'pipo-brush-v1'), así no se pierde el progreso existente. */
+const PKEY='pipo-perfiles-v1',KEY0='pipo-aventura-v2';
+const CFG0={voz:true,vozVol:1,mus:.8,rate:1,voice:'',calma:false,ayuda:15,descanso:4};
+function loadS(key){let s={stars:{},name:'',colors:{},g:'o'};
+  try{const t=localStorage.getItem(key)||(key===KEY0?localStorage.getItem('pipo-aventura-v1'):null);if(t){const o=JSON.parse(t);s=Object.assign(s,o);
+    if(key===KEY0&&!localStorage.getItem(KEY0)){['p0','p1','p2','p3'].forEach(k=>delete s.stars[k]);s.colors={}}}}catch(e){}
+  if(!s.stars||typeof s.stars!=='object')s.stars={};if(!s.colors||typeof s.colors!=='object')s.colors={};return s}
+let P=null;try{P=JSON.parse(localStorage.getItem(PKEY)||'null')}catch(e){}
+if(!P||!Array.isArray(P.list)){const o=loadS(KEY0);P={list:[],cur:'p1',cfg:Object.assign({},CFG0,{rate:+o.rate||1,voice:o.voice||''})};
+  if(o.name||Object.keys(o.stars).length)P.list.push({id:'p1',name:o.name||'',say:'',av:'pipo',g:o.g==='a'?'a':'o'})}
+P.cfg=Object.assign({},CFG0,P.cfg||{});
+function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}
+const ME=P.list.find(p=>p.id===P.cur)||P.list[0]||null;   /* perfil en uso (null = sin preparar) */
+const skey=id=>id==='p1'?KEY0:KEY0+'@'+id;
+const KEY=skey(ME?ME.id:'p1');
+let S=loadS(KEY);
+if(ME){S.name=ME.name;S.g=ME.g}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+saveP();
 if(S.g!=='a')S.g='o';
-/* género: g('campeón','campeona') según «Soy chico / Soy chica» */
+/* género: g('campeón','campeona') según el perfil */
 const g=(m,f)=>S.g==='a'?f:m;
 const kid=()=>S.name||g('campeón','campeona');
 
@@ -446,11 +587,11 @@ function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)
 function tone(f,t0,d,type,v,f2){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type=type||'sine';const t=a.currentTime+t0;
   o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
   g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v||.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}
+  o.connect(g);g.connect(outNode(a));o.start(t);o.stop(t+d+.05)}
 const sfx={
   pop:()=>tone(620,0,.12,'triangle',.2,980),
   ding:()=>{tone(784,0,.16,'sine',.25);tone(1175,.11,.32,'sine',.22)},
-  boing:()=>tone(420,0,.4,'triangle',.22,110),
+  boing:()=>tone(330,0,.22,'sine',.1), /* suave: sin sonidos desagradables al fallar */
   fanfare:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,i*.11,.28,'square',.07)),
   star:()=>tone(988,0,.25,'sine',.2,1480),
   tick:()=>tone(1320,0,.05,'sine',.06)
@@ -468,7 +609,7 @@ function escore(v){let s=0;if(/natural|neural|online/i.test(v.name))s+=6;if(/goo
 function loadVoices(){if(!SS)return;const all=SS.getVoices();voices=all.filter(v=>/^es/i.test(v.lang)).sort((a,b)=>vscore(b)-vscore(a));
   enVoices=all.filter(v=>/^en/i.test(v.lang)).sort((a,b)=>escore(b)-escore(a));fillVoices()}
 /* curVoice antes de loadVoices: si el navegador ya tiene voces al arrancar (Safari, Firefox, app Android), fillVoices la usa */
-const curVoice=()=>voices.find(v=>v.name===S.voice)||voices[0]||null;
+const curVoice=()=>voices.find(v=>v.name===P.cfg.voice)||voices[0]||null;
 if(SS){loadVoices();try{SS.addEventListener('voiceschanged',loadVoices)}catch(e){SS.onvoiceschanged=loadVoices}}
 const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function showBubble(t){const h=esc(t).replace(/«([^»]+)»|\[\[(.+?)\]\]/g,(m,a,b)=>`<mark class="tw">${a||b}</mark>`);$$('.bubble').forEach(b=>b.innerHTML=h)}
@@ -477,14 +618,17 @@ let spTok=0;
 function utter(t,en,o){return new Promise(res=>{let done=false;const fin=()=>{if(!done){done=true;res()}};
   const u=new SpeechSynthesisUtterance(t);const v=en?enVoices[0]:curVoice();
   if(v){u.voice=v;u.lang=v.lang}else u.lang=en?'en-US':'es-ES';
-  u.pitch=Math.min(2,(S.pitch||1.2)*(o.pitch||1));u.rate=Math.min(2,(S.rate||1)*(o.rate||1)*(en?.9:1));
+  u.pitch=Math.min(2,o.pitch||1);u.rate=Math.min(2,(P.cfg.rate||1)*(o.rate||1)*(en?.9:1));u.volume=P.cfg.vozVol;
   u.onend=fin;u.onerror=fin;setTimeout(fin,1800+t.length*95);SS.speak(u)})}
 async function speak(text,o){o=o||{};showBubble(text);const tok=++spTok;
   const parts=text.replace(/\p{Extended_Pictographic}|️|[«»]/gu,'').split(/\[\[(.+?)\]\]/);
-  if(!SS){await wait(500+text.length*45);return}
+  if(!SS||!P.cfg.voz){pipoTalk(false);await wait(500+text.length*45);return}   /* sin voz: el bocadillo sigue guiando */
   if(SS.speaking||SS.pending){SS.cancel();await wait(60)}
-  for(let i=0;i<parts.length;i++){if(tok!==spTok)return;const t=parts[i].trim();
-    if(!t||/^[\s.,;:!¡?¿]+$/.test(t))continue;await utter(t,i%2===1,o)}}
+  if(tok!==spTok)return;
+  pipoTalk(true);duck(true);
+  try{for(let i=0;i<parts.length;i++){if(tok!==spTok)return;let t=parts[i].trim();
+    if(!t||/^[\s.,;:!¡?¿]+$/.test(t))continue;if(i%2===0)t=sayName(t);await utter(t,i%2===1,o)}}
+  finally{if(tok===spTok){pipoTalk(false);duck(false)}}}
 
 const GOOD=()=>pick([`¡Toma ya, ${kid()}!`,`¡Muy bien, ${kid()}!`,`¡${kid()}, eres ${g('un','una')} crack!`,`¡Vaya cerebro tienes, ${kid()}!`,`¡${kid()} lo ha vuelto a hacer!`,`¡Así se hace, ${kid()}!`,`¡${kid()}, me dejas con la boca abierta!`,'¡Ole, ole y ole!','¡Bravo! Mis cuernos están bailando.',`¡Eres más ${g('listo','lista')} que un pulpo con gafas!`,'¡Chócala! ¡Pum!','¡Perfecto! Me tiro un pedete de alegría... ¡uy, perdón!','¡Superguay! ¡Hasta mi abuela aplaude!','¡Eres una máquina!','¡Increíble! ¡Me haces cosquillas en la barriga!','¡Bien! ¡Bien! ¡Requetebién!',
   `¡${kid()}, eres más ${g('rápido','rápida')} que un cohete!`,`¡Madre mía, ${kid()}, qué nivelazo!`,`¡Uau, ${kid()}! ¿Seguro que no eres ${g('un profe disfrazado','una profe disfrazada')}?`,
@@ -708,14 +852,14 @@ function noRepeat(list,n){const out=[];let last=null;for(let i=0;i<n;i++){let x;
 const genV1=()=>VOC.map(v=>{const[w,e]=VW[v][0];return{type:'choice',say:`Esta es la «${v}», de ${w}. ¡Toca la «${v}»!`,
   stage:`<div class="hero-letter">${lt(v)}</div><div class="hint">${e} ${w}</div>`,
   opts:shuffle([v,...sample(VOC.filter(x=>x!==v),2)]).map(x=>({h:lt(x),ok:x===v})),done:`¡La ${v}! ¡De ${w}!`}});
-const genV2=()=>noRepeat(VOC,5).map(v=>({type:'choice',say:`¿Dónde está la «${v}»?`,stage:EAR,
+const genV2=()=>noRepeat(VOC,5).map(v=>({type:'choice',say:`¿Dónde está la «${v}»?`,hint:`Escucha bien: «${v}».`,stage:EAR,
   opts:shuffle(VOC).map(x=>({h:lt(x),ok:x===v})),done:`¡Sí! ¡La ${v}!`}));
 const genV3=()=>sample(VOC,5).map(v=>{const[w,e]=pick(VW[v]);const rest=w.slice(1);return{type:'choice',say:`¿Con qué vocal empieza «${w}»?`,
   stage:`<div class="emoji-big">${e}</div><div class="word"><b class="q">?</b>${rest.toUpperCase()}</div>`,ans:v.toUpperCase(),
   opts:shuffle([v,...sample(VOC.filter(x=>x!==v),2)]).map(x=>({h:lt(x),ok:x===v})),done:`¡${w}! Empieza por la ${v}.`}});
 /* Sílabas */
 const genS1=()=>Array.from({length:5},()=>{const c=pick(['m','p','l','s']),v=pick(VOC),s=c+v;return{type:'choice',
-  say:`Quiero decir «${s}». La ${CONS[c]} ya está. ¿Qué vocal falta?`,
+  say:`Quiero decir «${s}». La ${CONS[c]} ya está. ¿Qué vocal falta?`,hint:`Dilo despacito conmigo: «${s}».`,
   stage:`<div class="eq"><span class="box">${c.toUpperCase()}</span>+<span class="box q">?</span></div><div class="res" hidden>${s.toUpperCase()}</div>`,ans:v.toUpperCase(),
   opts:shuffle([v,...sample(VOC.filter(x=>x!==v),2)]).map(x=>({h:lt(x),ok:x===v})),done:`${CONS[c]} con ${v}... ¡${s}!`}});
 const genS2=()=>sample(SYL,5).map(s=>{const c=s[0],v=s[1];const oc=pick(Object.keys(CONS).filter(x=>x!==c));
@@ -743,9 +887,9 @@ const genP4=()=>sample(WE,5).map(x=>{const w=x[0]+x[1];const o=pick(WE.filter(y=
 const genP5=()=>sample(W3E,5).map(([s,e])=>buildW(s,e,true,false));
 /* Sumas */
 const noun=(o,n)=>n===1?o[1]:o[2];
-const genM1=()=>shuffle([1,2,3,4,5,6]).slice(0,5).map(n=>{const o=pick(OBJ);return{type:'choice',fem:o[3],num:1,
-  say:`¿${o[3]?'Cuántas':'Cuántos'} ${o[2]} hay? ¡Tócalos para contar!`,stage:`<div class="grp solo">${objs(o[0],n)}</div>`,
-  opts:numOpts(n),done:`¡${nw(n,o[3])} ${noun(o,n)}!`}});
+const genM1=()=>shuffle([1,2,3,4,5,6]).slice(0,5).map((n,i)=>{const o=pick(OBJ),oops=i===2;return{type:'choice',fem:o[3],num:1,
+  say:oops?`Pipo ha contado ${n+1}... ¿Seguro? ¡Ayúdame a contar! ¿${o[3]?'Cuántas':'Cuántos'} ${o[2]} hay?`:`¿${o[3]?'Cuántas':'Cuántos'} ${o[2]} hay? ¡Tócalos para contar!`,stage:`<div class="grp solo">${objs(o[0],n)}</div>`,
+  opts:numOpts(n),done:oops?`¡Tenías razón! Son ${nw(n,o[3])}. ¡Gracias por ayudarme!`:`¡${nw(n,o[3])} ${noun(o,n)}!`}});
 function genSum(max,hide){return Array.from({length:5},()=>{const t=2+rnd(max-1),a=1+rnd(t-1),b=t-a,o=pick(OBJ);
   const pics=`<div class="sumrow"><div class="grp">${objs(o[0],a)}</div><span class="plus">+</span><div class="grp">${objs(o[0],b)}</div></div>`;
   const st=hide?`<div class="sum">${a} + ${b} = <b class="q">?</b></div><button class="btn hintb">Pista</button><div class="hidden-objs" hidden>${pics}</div>`
@@ -872,7 +1016,7 @@ const enBig=(k,x)=>k==='colors'?`<span class="sw2 big" style="--s:${x[1]}"></spa
 const genEnL=k=>EN[k].map(x=>Q(`${cap(x[2])} en inglés se dice [[${x[0]}]]. ¡Repite conmigo: [[${x[0]}]]! Ahora toca [[${x[0]}]].`,
   `${enBig(k,x)}<div class="enword">${x[0]}</div>`,[{h:enOpt(k,x),ok:true},...wrongs(EN[k],x,2,y=>enOpt(k,y))],`[[${x[0]}]]! [[${pick(['Very good!','Great!','Super!','Well done!'])}]]`,enX(k)));
 const genEnQ=k=>noRepeat(EN[k],5).map(x=>Q(`¿Dónde está [[${x[0]}]]?`,EAR,[{h:enOpt(k,x),ok:true},...wrongs(EN[k],x,2,y=>enOpt(k,y))],
-  `[[Yes!]] [[${x[0]}]] es ${x[2]}. `+pick([g('¡Hablas inglés como un inglés!','¡Hablas inglés como una inglesa!'),'','¡Qué bien!']),enX(k)));
+  `[[Yes!]] [[${x[0]}]] es ${x[2]}. `+pick([g('¡Hablas inglés como un inglés!','¡Hablas inglés como una inglesa!'),'','¡Qué bien!']),Object.assign(enX(k),{hint:`Escucha otra vez: [[${x[0]}]].`})));
 
 /* ---------- Música: canciones con piano de colores + instrumentos ----------
    Canciones tradicionales en inglés (dominio público). El niño toca la melodía siguiendo
@@ -932,9 +1076,9 @@ let NZ=null;
 function noiseBuf(a){if(!NZ){NZ=a.createBuffer(1,Math.floor(a.sampleRate*1.2),a.sampleRate);const d=NZ.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}return NZ}
 function env(g,t,v,dec){g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+.005+dec)}
 function osc(f,type,v,dec,t0,f2){const a=ac();if(!a)return;const t=a.currentTime+(t0||0),o=a.createOscillator(),g=a.createGain();o.type=type;
-  o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dec);env(g,t,v,dec);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+dec+.05)}
+  o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dec);env(g,t,v,dec);o.connect(g);g.connect(outNode(a));o.start(t);o.stop(t+dec+.05)}
 function nz(v,dec,ftype,freq,t0){const a=ac();if(!a)return;const t=a.currentTime+(t0||0),s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();
-  s.buffer=noiseBuf(a);f.type=ftype;f.frequency.value=freq;env(g,t,v,dec);s.connect(f);f.connect(g);g.connect(a.destination);s.start(t);s.stop(t+dec+.05)}
+  s.buffer=noiseBuf(a);f.type=ftype;f.frequency.value=freq;env(g,t,v,dec);s.connect(f);f.connect(g);g.connect(outNode(a));s.start(t);s.stop(t+dec+.05)}
 const INST={piano:f=>{osc(f,'triangle',.32,1.1);osc(f*2,'sine',.08,.5);osc(f*3,'sine',.03,.25)},
   xylo:f=>{osc(f*2,'sine',.35,.55);osc(f*8,'sine',.05,.06)}};
 const DRUMS=[['Bombo','🥁','#FF6B6B',()=>osc(150,'sine',.9,.4,0,42)],
@@ -947,8 +1091,8 @@ const DRUMS=[['Bombo','🥁','#FF6B6B',()=>osc(150,'sine',.9,.4,0,42)],
 const BLK=[0,1,3,4,5];
 const keysHtml=cls=>`<div class="keys8${cls?' '+cls:''}"><div class="kbed">${PIANO.map((k,i)=>`<button class="pkey" type="button" style="--kc:${k.c}" data-n="${i}" aria-label="${k.n}"><span>${k.n}</span></button>`).join('')}${BLK.map(i=>`<button class="bkey" type="button" tabindex="-1" data-b="${i}" style="left:calc(${(i+1)*12.5}% - 3.6%)" aria-label="${PIANO[i].n} sostenido"></button>`).join('')}</div></div>`;
 /* dice una palabra en inglés al momento, con el tono según la tecla (como si cantara) */
-function sayNow(t,k){if(!SS||!t)return;try{SS.cancel();const u=new SpeechSynthesisUtterance(t),v=enVoices[0];if(v){u.voice=v;u.lang=v.lang}else u.lang='en-US';
-  u.rate=Math.min(2,S.rate||1);u.pitch=Math.min(2,.85+(k||0)*.12);SS.speak(u)}catch(e){}}
+function sayNow(t,k){if(!SS||!t||!P.cfg.voz)return;try{SS.cancel();const u=new SpeechSynthesisUtterance(t),v=enVoices[0];if(v){u.voice=v;u.lang=v.lang}else u.lang='en-US';
+  u.rate=Math.min(2,P.cfg.rate||1);u.volume=P.cfg.vozVol;u.pitch=Math.min(2,.85+(k||0)*.12);SS.speak(u)}catch(e){}}
 function flashEl(b){if(!b)return;b.classList.add('lit');clearTimeout(b._t);b._t=setTimeout(()=>b.classList.remove('lit'),220)}
 
 /* ---------- dictado: opcional ---------- */
@@ -1087,33 +1231,267 @@ const SUBJ=[
 ];
 const allLevels=()=>SUBJ.flatMap(sj=>sj.themes.flatMap(t=>t.levels.map((_,j)=>t.id+j)));
 
+/* =====================================================================
+   REDISEÑO 5-7 AÑOS · Pipo como guía, guiones por evento, ayuda en dos
+   pasos, inicio con «siguiente aventura», fin de sesión y área de mayores.
+   ===================================================================== */
+
+/* ---------- guiones de Pipo (frases preparadas por evento) ----------
+   El nombre se usa con moderación: al saludar, al despedirse y poco más. */
+const LINES={
+  greetNew:()=>`¡Hola, ${kid()}! Soy Pipo. Toca el botón grande y empezamos nuestra aventura.`,
+  greet:()=>pick([`¡Hola, ${kid()}! ¿Seguimos nuestra aventura?`,`¡Hola otra vez, ${kid()}! ¿Vamos a por la siguiente aventura?`]),
+  home:'Toca el botón grande para seguir, o elige otra cosa.',
+  subject:n=>`${n}. Toca «Jugar» en la aventura que quieras.`,
+  subjectAgain:'¿Cuál jugamos ahora?',
+  locked:'Esa todavía está cerrada. Juega primero la de antes.',
+  oops:['Esa no es.','Casi.','Uy, esa no.'],
+  aqui:['Mira, es esta. Tócala.','Te enseño: es esta de aquí. Tócala.'],
+  aquiPieza:p=>`Ahora toca «${p}».`,
+  stuck:['Si quieres, toca la bombilla y te ayudo.','¿Te echo una mano? Toca la bombilla.'],
+  withHelp:()=>pick(['¡Lo hemos conseguido juntos!',`¡Bien! La próxima la sacas tú ${g('solo','sola')}.`]),
+  count:'Vamos a contarlos juntos.',
+  win3:n=>`¡Tres estrellas! Has terminado «${n}».`,
+  win2:n=>`¡Dos estrellas! «${n}» superada. Si la repites y sacas tres, sumas para un amigo nuevo.`,
+  win1:()=>'Una estrella. La intentamos otra vez, con calma. ¡Tú puedes!',
+  friendNew:'¡Y has conseguido un amigo nuevo para pintar!',
+  rest:'Llevamos un buen rato jugando. Si quieres, podemos descansar.',
+  bye:n=>`¡Hasta pronto, ${kid()}! ${n?`Hoy has completado ${n} ${n===1?'aventura':'aventuras'}. `:''}Lo guardo todo para la próxima vez.`,
+  noProfile:'Pide a un mayor que prepare tu perfil.',
+};
+const SES={n:0,sugg:0};
+
+/* ---------- Pipo: un único dibujo con estados ----------
+   Monstruo azul de siempre, ahora explorador: mochila, tirantes y pañuelo.
+   Estados (data-s): saludo · espera · explica · animo · celebra · despedida.
+   Hablar es una capa aparte (data-talk) que mueve la boca en cualquier estado. */
+const PIPO_SVG=(()=>{const st=`stroke="${INK}" stroke-width="4" stroke-linejoin="round"`,ln=`fill="none" stroke="${INK}" stroke-width="5" stroke-linecap="round"`;
+  const eye=(x,y)=>`<circle cx="${x}" cy="${y}" r="15" fill="#fff" ${st}/><circle cx="${x+2.25}" cy="${y+2.25}" r="7.5" fill="${INK}"/><circle cx="${x+4.5}" cy="${y-1.5}" r="2.7" fill="#fff"/>`;
+  return`<svg class="pipo" viewBox="0 0 200 200" xmlns="${NS}" role="img" aria-label="Pipo" data-s="espera" data-talk="0"><g class="pp-all">`+
+  `<rect x="118" y="30" width="48" height="46" rx="12" fill="#E8893A" ${st}/><path d="M126 44h32" ${ln}/>`+
+  `<ellipse cx="68" cy="180" rx="20" ry="11" fill="#2F7FD8" ${st}/><ellipse cx="132" cy="180" rx="20" ry="11" fill="#2F7FD8" ${st}/>`+
+  `<g class="pp-arm-l"><ellipse cx="34" cy="128" rx="12" ry="22" fill="#4FA3FF" ${st}/></g>`+
+  `<g class="pp-arm-r"><ellipse cx="166" cy="128" rx="12" ry="22" fill="#4FA3FF" ${st}/></g>`+
+  `<path d="M62 62 L48 20 L88 50 Z" fill="#FFC93C" ${st}/><path d="M138 62 L152 20 L112 50 Z" fill="#FFC93C" ${st}/>`+
+  `<ellipse cx="100" cy="112" rx="70" ry="66" fill="#4FA3FF" ${st}/><ellipse cx="100" cy="152" rx="40" ry="24" fill="#BFE3FF" ${st}/>`+
+  `<path d="M38 88 Q32 112 40 140 L47 138 Q40 112 45 86 Z" fill="#E8893A" ${st}/><path d="M162 88 Q168 112 160 140 L153 138 Q160 112 155 86 Z" fill="#E8893A" ${st}/>`+
+  `<path d="M74 134 Q100 144 126 134 L100 160 Z" fill="#FF4D4D" ${st}/><circle cx="100" cy="138" r="5" fill="#FF4D4D" ${st}/>`+
+  `<g class="pp-eyes">${eye(76,84)}${eye(124,84)}</g>`+
+  `<g class="pp-eyes-h"><path d="M62 88 Q76 72 90 88" ${ln}/><path d="M110 88 Q124 72 138 88" ${ln}/></g>`+
+  `<g class="pp-brow"><path d="M62 64 Q76 56 88 62" ${ln}/><path d="M138 64 Q124 56 112 62" ${ln}/></g>`+
+  `<circle cx="54" cy="110" r="9" fill="#FF9FC2"/><circle cx="146" cy="110" r="9" fill="#FF9FC2"/>`+
+  `<path class="pp-ms" d="M80 110 Q100 130 120 110" ${ln}/>`+
+  `<g class="pp-mo"><path d="M82 108 Q100 136 118 108 Z" fill="${INK}"/><path d="M90 121 Q100 130 110 121 Q100 116 90 121 Z" fill="#FF7FB0"/></g>`+
+  `</g></svg>`})();
+let ppT=0;
+function pipoSet(s,ms){clearTimeout(ppT);$$('.pipo').forEach(e=>e.setAttribute('data-s',s));if(ms)ppT=setTimeout(()=>pipoSet('espera'),ms)}
+function pipoTalk(on){$$('.pipo').forEach(e=>e.setAttribute('data-talk',on?'1':'0'))}
+const avatarSVG=id=>svgChar(CHARS.find(c=>c.id===id)||CHARS[0],'color');
+const AVS=['pipo','bigotes','bruno','leo','tito','turbo','calabazo','copito','rayo'];
+
+/* ---------- audio: una sola voz a la vez y la música baja mientras habla ---------- */
+let MG=null;
+function outNode(a){if(!MG){MG=a.createGain();MG.gain.value=P.cfg.mus;MG.connect(a.destination)}return MG}
+function duck(on){if(!MG||!AC)return;const v=P.cfg.mus*(on?.35:1);try{MG.gain.setTargetAtTime(v,AC.currentTime,.08)}catch(e){MG.gain.value=v}}
+function stopVoice(){spTok++;songTok++;try{if(SS)SS.cancel()}catch(e){}pipoTalk(false);duck(false)}
+/* el nombre se dice como lo haya escrito el adulto en «cómo se pronuncia» */
+const sayName=t=>{const n=S.name,s=ME&&ME.say;return n&&s&&s!==n?t.split(n).join(s):t};
+
+/* ---------- ayuda en la actividad: pista → ejemplo guiado ---------- */
+let stT1=0,stT2=0;
+function clearStuck(){clearTimeout(stT1);clearTimeout(stT2);const h=$('#gHelp');if(h)h.classList.remove('nudge')}
+/* si parece atascado: primero una señal discreta en la bombilla y, más tarde, una sola invitación */
+function armStuck(q){clearStuck();const s=+P.cfg.ayuda||0;if(!s||!G)return;
+  const ok=()=>G&&G.qs[G.i]===q&&cur==='game'&&!G.busy&&$('#win').hidden;
+  stT1=setTimeout(()=>{if(ok())$('#gHelp').classList.add('nudge')},s*1000);
+  stT2=setTimeout(()=>{if(ok()&&!q.asked){q.asked=1;pipoSet('explica',2500);speak(pick(LINES.stuck))}},s*2000)}
+function hintFor(q){if(q.hint)return q.hint;
+  if(q.num&&$('#stage .obj'))return'Toca los dibujos para contarlos uno a uno.';
+  if(/class="ear"/.test(q.stage||''))return'Escucha otra vez con atención.';
+  if(q.type==='build'){const p=q.pieces.find(x=>x.v===q.answer[G.pos]);return p?`Ahora va «${p.h}».`:'Busca el trocito que va ahora.'}
+  return'Fíjate bien en el dibujo.'}
+function helpStep(q,fromError){q.hl=(q.hl||0)+1;clearStuck();
+  if(q.hl<2){
+    if(q.type==='choice'){const w=$$('#pad .opt').filter((b,k)=>q.opts[k]&&!q.opts[k].ok&&!b.disabled);if(w.length>1){const b=pick(w);b.classList.add('bad');b.disabled=true}}
+    const ear=/class="ear"/.test(q.stage||'');
+    speak((fromError?pick(LINES.oops)+' ':'')+hintFor(q)).then(()=>{if(ear&&G&&G.qs[G.i]===q&&cur==='game')replay()});return}
+  guide(q)}
+/* ejemplo guiado: cuenta con el niño si hay dibujos y señala la respuesta; queda como «con ayuda» */
+async function guide(q){q.helped=true;pipoSet('explica',5000);const same=()=>G&&G.qs[G.i]===q&&cur==='game';
+  if(q.num&&$('#stage .obj')){const hid=$('#stage .hidden-objs');if(hid)hid.hidden=false;const hb=$('#stage .hintb');if(hb)hb.hidden=true;
+    $$('#stage .obj').forEach(o=>{o.classList.remove('t');delete o.dataset.n});
+    await speak(LINES.count);let n=0;
+    for(const o of $$('#stage .obj:not(.gone)')){if(!same())return;n++;o.classList.add('t');o.dataset.n=n;await speak(nw(n,q.fem))}
+    G.count=n}
+  if(!same())return;
+  if(q.type==='choice'){const k=q.opts.findIndex(o=>o.ok),b=$$('#pad .opt')[k];if(b)b.classList.add('aqui');speak(pick(LINES.aqui))}
+  else if(q.type==='build'){const bs=$$('#pad .opt'),k=q.pieces.findIndex((p,i)=>p.v===q.answer[G.pos]&&!bs[i].disabled);
+    if(k>=0){bs[k].classList.add('aqui');speak(LINES.aquiPieza(q.pieces[k].h))}}}
+
+/* ---------- inicio: la siguiente aventura recomendada ---------- */
+/* primeros niveles abiertos sin superar, alternando asignatura para que haya variedad */
+function recNext(){const order=['len','mat','ing','med','mus','art'],cand=[];
+  const each=f=>SUBJ.forEach((sj,si)=>sj.themes.forEach((t,ti)=>t.levels.forEach((l,li)=>f(sj,si,t,ti,li))));
+  each((sj,si,t,ti,li)=>{if(lvOpen(t,li)&&(S.stars[t.id+li]||0)<2)cand.push({si,ti,li,o:order.indexOf(sj.id)})});
+  if(!cand.length)each((sj,si,t,ti,li)=>{if((S.stars[t.id+li]||0)<3)cand.push({si,ti,li,o:order.indexOf(sj.id)})});
+  if(!cand.length)return{si:0,ti:0,li:0};
+  const alt=cand.filter(c=>SUBJ[c.si].id!==S.last),pool=alt.length?alt:cand;
+  pool.sort((a,b)=>a.li-b.li||a.o-b.o||a.ti-b.ti);return pool[0]}
+/* dentro de un tema: el primer nivel abierto sin superar */
+function themeNext(t){let j=t.levels.findIndex((_,i)=>lvOpen(t,i)&&(S.stars[t.id+i]||0)<2);
+  if(j<0)j=t.levels.findIndex((_,i)=>(S.stars[t.id+i]||0)<3);return j<0?0:j}
+
+/* ---------- entrada: perfiles con avatar ---------- */
+function renderWho(){const w=$('#who');
+  if(!P.list.length){w.innerHTML=`<p class="who-empty">${LINES.noProfile}</p>`;$('#goBtn').textContent='Preparar perfil';return}
+  w.innerHTML=P.list.map(p=>`<button class="who-card${ME&&p.id===ME.id?' on':''}" type="button" data-p="${p.id}" aria-pressed="${ME&&p.id===ME.id}">${avatarSVG(p.av)}<b>${esc(p.name||'Jugador')}</b></button>`).join('');
+  $('#goBtn').textContent='▶ ¡Jugar!'}
+$('#who').addEventListener('click',e=>{const b=e.target.closest('.who-card');if(!b)return;sfx.pop();
+  if(ME&&b.dataset.p===ME.id){speak(`¡Hola, ${kid()}! Toca «Jugar».`);return}
+  P.cur=b.dataset.p;saveP();location.reload()});   /* cada perfil carga su propio guardado */
+$('#goBtn').addEventListener('click',()=>{ac();if(!ME){openGate('perfil');return}
+  sfx.fanfare();const nuevo=!Object.keys(S.stars).length;show('home');pipoSet('saludo',2600);speak(nuevo?LINES.greetNew():LINES.greet())});
+$('#adultBtn').addEventListener('click',()=>{sfx.pop();openGate('adult')});
+
+/* ---------- fin de sesión: despedirse es fácil y sin presión ---------- */
+function goodbye(){$('#win').hidden=true;show('bye');$('#byeT').textContent=`¡Hasta pronto${S.name?', '+S.name:''}!`;
+  $('#byeSum').textContent=SES.n?`Hoy has completado ${SES.n} ${SES.n===1?'aventura':'aventuras'}. Todo queda guardado.`:'Todo queda guardado para la próxima vez.';
+  pipoSet('despedida',3500);speak(LINES.bye(SES.n))}
+$('#byeBtn').addEventListener('click',()=>{sfx.pop();goodbye()});
+$('#byeBack').addEventListener('click',()=>{sfx.pop();show('start')});
+
+/* ---------- registro de actividad para los mayores ---------- */
+function logPlay(key,st){const e={k:key,si:G.si,ti:G.ti,li:G.li,st,err:G.err,h:G.helped||0,n:G.qs.length,d:Date.now()};
+  S.log=(Array.isArray(S.log)?S.log:[]).concat(e).slice(-40)}
+
+/* ---------- pintar: deshacer ---------- */
+const UNDO=[];function pushUndo(u){UNDO.push(u);while(UNDO.length>12)UNDO.shift()}
+function undoPaint(){let k=-1;for(let i=UNDO.length-1;i>=0;i--)if(UNDO[i].id===pc.id){k=i;break}
+  if(k<0){speak('No hay nada que deshacer.');return}const u=UNDO.splice(k,1)[0];sfx.pop();
+  if(u.t==='f'){const m=S.colors[pc.id]=S.colors[pc.id]||{};if(u.prev==null)delete m[u.i];else m[u.i]=u.prev;save();drawPaper()}
+  else if(u.t==='b'){const cv=$('#brush');if(u.img.width===cv.width&&u.img.height===cv.height){cv.getContext('2d').putImageData(u.img,0,0);keepBrush()}}
+  else{S.colors[pc.id]=u.colors;save();if(u.brush)brushMem[pc.id]=u.brush;else delete brushMem[pc.id];saveBrush();drawPaper()}}
+$('#pUndo').addEventListener('click',undoPaint);
+/* imagen de un dibujo (colores + pincel) para guardarla desde el área de mayores */
+async function drawingPNG(c){const svg=svgChar(c,'paint',S.colors[c.id]).replace('<svg ','<svg width="800" height="800" ');
+  const im=new Image();im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await im.decode();
+  const cv=document.createElement('canvas');cv.width=cv.height=800;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,800,800);x.drawImage(im,0,0,800,800);
+  const b=brushMem[c.id];if(b){const i2=new Image();i2.src=b;await i2.decode();x.drawImage(i2,0,0,800,800)}return cv.toDataURL('image/png')}
+
+/* ---------- área para mayores ---------- */
+let gateSum=0,gateNext='adult';
+function openGate(next){gateNext=next||'adult';const a=11+rnd(19),b=11+rnd(19);gateSum=a+b;$('#gateQ').textContent=`¿Cuánto es ${a} + ${b}?`;
+  $('#gateIn').value='';$('#gateErr').hidden=true;$('#gate').hidden=false;setTimeout(()=>{try{$('#gateIn').focus()}catch(e){}},60)}
+$('#gateForm').addEventListener('submit',e=>{e.preventDefault();
+  if(+$('#gateIn').value===gateSum){$('#gate').hidden=true;openAdult(gateNext);return}
+  $('#gateErr').hidden=false;const f=$('#gateForm');f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');try{$('#gateIn').select()}catch(_){}});
+$('#gateNo').addEventListener('click',()=>{$('#gate').hidden=true;sfx.pop()});
+$('#gear').addEventListener('click',()=>{sfx.pop();openGate('adult')});
+$('#adultBack').addEventListener('click',()=>{sfx.pop();show('start')});
+function openAdult(focus){show('adult');renderAdult();if(focus==='perfil'||!P.list.length)editProfile(ME?ME.id:'');}
+const fmtD=t=>{const d=new Date(t);return d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})};
+function progressHtml(){const rows=SUBJ.map(sj=>{const ks=sj.themes.flatMap(t=>t.levels.map((_,j)=>t.id+j));const s2=ks.filter(k=>(S.stars[k]||0)>=2).length,s3=ks.filter(k=>S.stars[k]===3).length;
+    return`<tr><th>${sj.name}</th><td class="n">${s2} de ${ks.length} superadas · ${s3} con 3★</td></tr>`}).join('');
+  const log=(S.log||[]).slice(-10).reverse().map(e=>{const sj=SUBJ[e.si],t=sj&&sj.themes[e.ti],l=t&&t.levels[e.li];if(!l)return'';
+    return`<tr><td>${fmtD(e.d)}</td><td>${esc(t.name)} · ${esc(l.n)}</td><td class="n">${'★'.repeat(e.st)}${'☆'.repeat(3-e.st)}<br>${e.h?`con ayuda en ${e.h} de ${e.n}`:'sin ayuda'}</td></tr>`}).join('');
+  return`<table class="ptable"><tbody>${rows}</tbody></table><span class="lbl">Últimas actividades</span>`+(log?`<table class="ptable"><tbody>${log}</tbody></table>`:'<p class="note">Todavía no ha jugado ninguna aventura.</p>')}
+function drawingsHtml(){const list=CHARS.filter(c=>isUnl(c)&&((S.colors[c.id]&&Object.keys(S.colors[c.id]).length)||brushMem[c.id]));
+  return list.length?`<div class="drw">${list.map(c=>`<figure>${svgChar(c,'paint',S.colors[c.id])}<button class="btn sm" type="button" data-dl="${c.id}">Guardar imagen</button></figure>`).join('')}</div>`:'<p class="note">Todavía no hay dibujos pintados.</p>'}
+function renderAdult(){const c=P.cfg,nm=esc(S.name||'este perfil');
+  $('#adultBody').innerHTML=`
+  <section class="acard"><h3>Perfiles</h3>${P.list.map(p=>`<div class="arow"><span class="av">${avatarSVG(p.av)}</span><b>${esc(p.name||'(sin nombre)')}</b>${ME&&p.id===ME.id?'<small>en uso</small>':''}<button class="btn sm" type="button" data-ed="${p.id}">Editar</button></div>`).join('')||'<p class="note">Todavía no hay perfiles.</p>'}
+    <button class="btn sm" type="button" data-ed="nuevo">+ Añadir perfil</button><div id="pform"></div></section>
+  <section class="acard"><h3>Sonido</h3>
+    <label class="sw-row"><input type="checkbox" id="cVoz"${c.voz?' checked':''}> Voz de Pipo</label>
+    <label for="cVozVol">Volumen de la voz</label><input type="range" id="cVozVol" min="0.2" max="1" step="0.1" value="${c.vozVol}">
+    <label for="cMus">Música y efectos</label><input type="range" id="cMus" min="0" max="1" step="0.1" value="${c.mus}">
+    <label for="cRate">Velocidad de la voz</label><input type="range" id="cRate" min="0.8" max="1.2" step="0.05" value="${c.rate}">
+    <label for="cVoice">Voz en español</label><select id="cVoice"></select><p class="note" id="cVoiceNote"></p>
+    <button class="btn sm" type="button" id="cTest">🔊 Probar la voz</button></section>
+  <section class="acard"><h3>Ayuda y calma</h3>
+    <label for="cAyuda">Si no toca nada, ofrecer ayuda a los</label><select id="cAyuda">${[10,15,25,40,0].map(s=>`<option value="${s}"${+c.ayuda===s?' selected':''}>${s?s+' segundos':'Nunca'}</option>`).join('')}</select>
+    <label for="cDesc">Proponer un descanso tras</label><select id="cDesc">${[3,4,6,10,0].map(n=>`<option value="${n}"${+c.descanso===n?' selected':''}>${n?n+' aventuras':'Nunca'}</option>`).join('')}</select>
+    <label class="sw-row"><input type="checkbox" id="cCalma"${c.calma?' checked':''}> Movimiento reducido (sin animaciones)</label></section>
+  <section class="acard"><h3>Progreso de ${nm}</h3>${progressHtml()}</section>
+  <section class="acard"><h3>Dibujos de ${nm}</h3>${drawingsHtml()}</section>
+  <section class="acard"><h3>Datos</h3><p class="note">Todo se guarda solo en este dispositivo. No se envía nada a internet.</p>
+    <button class="btn sm danger" type="button" id="cResetProg">Borrar el progreso de ${nm}</button>
+    <button class="btn sm danger" type="button" id="cResetDraw">Borrar los dibujos de ${nm}</button></section>`;
+  fillVoices()}
+function editProfile(id){const p=P.list.find(x=>x.id===id)||{id:'',name:'',say:'',av:'pipo',g:'o'},f=$('#pform');if(!f)return;let av=p.av,gg=p.g;
+  f.innerHTML=`<div class="pform"><label for="fName">Nombre (se ve en pantalla)</label><input type="text" id="fName" maxlength="14" autocomplete="off" value="${esc(p.name)}">
+    <label for="fSay">Cómo se pronuncia (si la voz lo dice mal)</label><input type="text" id="fSay" maxlength="30" autocomplete="off" placeholder="Por ejemplo: Juanmá" value="${esc(p.say||'')}">
+    <button class="btn sm" type="button" id="fHear">🔊 Escuchar el saludo</button>
+    <span class="lbl">Chico o chica (para decir «bienvenido» o «bienvenida»)</span>
+    <div class="gpick"><button class="btn gbtn" type="button" data-g="o">Chico</button><button class="btn gbtn" type="button" data-g="a">Chica</button></div>
+    <span class="lbl">Avatar para reconocer su perfil</span><div class="avpick">${AVS.map(a=>`<button class="avb" type="button" data-av="${a}" aria-label="${a}">${avatarSVG(a)}</button>`).join('')}</div>
+    <div class="row"><button class="btn go sm" type="button" id="fSave">Guardar</button>${p.id?'<button class="btn sm danger" type="button" id="fDel">Borrar perfil</button>':''}</div></div>`;
+  const paint=()=>{$$('#pform .gbtn').forEach(b=>b.classList.toggle('on',b.dataset.g===gg));$$('#pform .avb').forEach(b=>b.classList.toggle('on',b.dataset.av===av))};paint();
+  let delArm=false;
+  f.onclick=e=>{const t=e.target.closest('button');if(!t)return;
+    if(t.dataset.g){gg=t.dataset.g;paint();return}if(t.dataset.av){av=t.dataset.av;paint();return}
+    if(t.id==='fHear'){const n=$('#fName').value.trim(),s=$('#fSay').value.trim();stopVoice();speak(`¡Hola, ${s||n||'campeón'}! ¿Seguimos nuestra aventura?`);return}
+    if(t.id==='fSave'){const n=$('#fName').value.trim().slice(0,14),s=$('#fSay').value.trim().slice(0,30);
+      if(!n){$('#fName').focus();return}
+      const first=!P.list.length,nid=p.id||(first||!P.list.some(x=>x.id==='p1')?'p1':'p'+Date.now().toString(36));
+      const np={id:nid,name:n,say:s&&s!==n?s:'',av,g:gg};const i=P.list.findIndex(x=>x.id===nid);if(i>=0)P.list[i]=np;else P.list.push(np);
+      if(first||!ME){P.cur=nid;saveP();location.reload();return}
+      saveP();if(ME&&nid===ME.id){Object.assign(ME,np);S.name=n;S.g=gg;save()}renderAdult();sfx.ding();return}
+    if(t.id==='fDel'){if(!delArm){delArm=true;t.textContent='¿Seguro? Se borra su progreso. Toca otra vez';return}
+      P.list=P.list.filter(x=>x.id!==p.id);try{localStorage.removeItem(skey(p.id));localStorage.removeItem(p.id==='p1'?'pipo-brush-v1':'pipo-brush-v1@'+p.id)}catch(_){}
+      if(ME&&ME.id===p.id){P.cur=P.list[0]?P.list[0].id:'p1';saveP();location.reload();return}saveP();renderAdult()}};
+  f.scrollIntoView({block:'nearest'})}
+let armP=false,armD=false;
+$('#adultBody').addEventListener('click',async e=>{const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.ed!==undefined){sfx.pop();editProfile(t.dataset.ed==='nuevo'?'':t.dataset.ed);return}
+  if(t.dataset.dl){const c=CHARS.find(x=>x.id===t.dataset.dl);try{const url=await drawingPNG(c),fn=`dibujo-${c.id}.png`;
+      if(window.AndroidTTS&&AndroidTTS.saveImage){t.textContent=AndroidTTS.saveImage(url,fn)?'Guardado en la galería':'No se ha podido guardar'}
+      else{const a=document.createElement('a');a.href=url;a.download=fn;document.body.appendChild(a);a.click();a.remove();t.textContent='Descargado'}}catch(_){t.textContent='No se ha podido guardar'}return}
+  if(t.id==='cTest'){stopVoice();speak(`¡Hola, ${kid()}! Toca el grupo que tiene tres manzanas.`);return}
+  if(t.id==='cResetProg'){if(!armP){armP=true;t.textContent='¿Seguro? Toca otra vez para borrar';return}armP=false;
+    S.stars={};S.unl=[];S.prog=0;S.log=[];save();renderAdult();return}
+  if(t.id==='cResetDraw'){if(!armD){armD=true;t.textContent='¿Seguro? Toca otra vez para borrar';return}armD=false;
+    S.colors={};save();brushMem={};saveBrush();renderAdult();return}});
+$('#adultBody').addEventListener('change',e=>{const t=e.target,c=P.cfg;
+  if(t.id==='cVoz')c.voz=t.checked;else if(t.id==='cAyuda')c.ayuda=+t.value;else if(t.id==='cDesc')c.descanso=+t.value;
+  else if(t.id==='cCalma'){c.calma=t.checked;document.documentElement.classList.toggle('calma',c.calma)}
+  else if(t.id==='cVoice'){c.voice=t.value}else return;saveP()});
+$('#adultBody').addEventListener('input',e=>{const t=e.target,c=P.cfg;
+  if(t.id==='cVozVol')c.vozVol=+t.value;else if(t.id==='cMus'){c.mus=+t.value;duck(false)}else if(t.id==='cRate')c.rate=+t.value;else return;saveP()});
+/* lista de voces del dispositivo (y aviso si falta la voz natural) */
+function fillVoices(){const sel=$('#cVoice');if(!sel)return;const note=$('#cVoiceNote');
+  if(!voices.length){sel.innerHTML='<option>Sin voces en español</option>';note.textContent='Este dispositivo no tiene voz en español. Instálala en Ajustes › Accesibilidad › Texto a voz.';return}
+  const c=curVoice();sel.innerHTML=voices.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${c&&v.name===c.name?' selected':''}>${esc(v.name)} (${v.lang})</option>`).join('');
+  const nat=window.AndroidTTS&&AndroidTTS.engineInfo?AndroidTTS.engineInfo():'';
+  note.textContent=nat||'Elige la voz que suene más natural. La voz natural de Pipo se instala aparte en la tablet (ver guía).'}
+
+/* ---------- arranque del rediseño ---------- */
+function initRediseno(){document.documentElement.classList.toggle('calma',!!P.cfg.calma);renderWho();pipoSet('saludo',2600)}
+
 /* ---------- navegación ---------- */
 let cur='start';
-function show(id){$$('.screen').forEach(s=>s.hidden=s.id!==id);cur=id;instrTok++;
-  if(id==='home')renderHome();if(id==='album')renderAlbum();if(id==='paint')openPaint();if(id==='instr')openInstr()}
+function show(id){stopVoice();clearStuck();$$('.screen').forEach(s=>s.hidden=s.id!==id);cur=id;instrTok++;pipoSet('espera');
+  if(id==='start')renderWho();if(id==='home')renderHome();if(id==='album')renderAlbum();if(id==='paint')openPaint();if(id==='instr')openInstr()}
 $$('[data-go]').forEach(b=>b.addEventListener('click',()=>{sfx.pop();show(b.dataset.go)}));
-function drawMinis(){const p=svgChar(CHARS[0],'color');$$('.pipo-btn').forEach(b=>b.innerHTML=p);$('#startPipo').innerHTML=p}
-function mascot(cls){$$('.pipo-btn').forEach(b=>{b.classList.remove('happy','oops');void b.offsetWidth;b.classList.add(cls)})}
+function drawMinis(){$$('.pipo-btn').forEach(b=>b.innerHTML=PIPO_SVG);$('#startPipo').innerHTML=PIPO_SVG;$('#byePipo').innerHTML=PIPO_SVG}
+function mascot(cls){pipoSet(cls==='happy'?'celebra':'animo',1400)}
 $$('.pipo-btn').forEach(b=>b.addEventListener('click',()=>{mascot('happy');speak(pick(Math.random()<.7?JOKES:CURIOS))}));
 
-$('#nameIn').value=S.name||'';
-/* Soy chico / Soy chica (inicio y ajustes) */
-function paintG(){$$('.gbtn').forEach(b=>{const on=b.dataset.g===S.g;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))})}
-document.addEventListener('click',e=>{const b=e.target.closest('.gbtn');if(!b)return;S.g=b.dataset.g==='a'?'a':'o';save();sfx.pop();paintG()});
-paintG();
-$('#goBtn').addEventListener('click',()=>{ac();sfx.fanfare();S.name=$('#nameIn').value.trim().slice(0,14);save();loadVoices();show('home');
-  speak(`¡Hola, hola${S.name?', '+S.name:''}! Soy Pipo. ¿Jugamos a aprender? Con dos estrellas pasas de nivel... ¡y con tres estrellas vas descubriendo amigos nuevos!`)});
+/* la entrada (perfiles y «¡Jugar!») está en el bloque del rediseño */
 
-function renderHome(){$('#starCount').textContent='★ '+totalStars();
-  showBubble(`¡Hola${S.name?', '+S.name:''}! ¿A qué jugamos hoy?`);
-  let h=SUBJ.map((sj,i)=>{const keys=sj.themes.flatMap(t=>t.levels.map((_,j)=>t.id+j));const max=keys.length*3;const got=keys.reduce((a,k)=>a+(S.stars[k]||0),0);
+function renderHome(){$('#starCount').textContent='★ '+totalStars();showBubble(LINES.home);
+  const r=recNext(),rs=SUBJ[r.si],rt=rs.themes[r.ti],rl=rt.levels[r.li];
+  $('#nextBtn').innerHTML=`<span class="nx-ico" style="--c:${rs.c}">${rs.glyph}</span><span class="nx-tx"><small>Tu siguiente aventura</small><b>${esc(rt.name)}</b><span>${esc(rl.n)}</span></span><span class="nx-go">▶<small>Jugar</small></span>`;
+  $('#nextBtn').dataset.r=[r.si,r.ti,r.li].join(',');
+  let h=SUBJ.map((sj,i)=>{const keys=sj.themes.flatMap(t=>t.levels.map((_,j)=>t.id+j));const done=keys.filter(k=>(S.stars[k]||0)>=2).length;
     const allDone=keys.every(k=>S.stars[k]===3);
-    return`<button class="wcard" style="--c:${sj.c}" data-w="${i}">${allDone?'<span class="medal" aria-label="medalla">🏅</span>':''}<span class="glyph">${sj.glyph}</span><span class="nm">${sj.name}</span><span class="pg">★ ${got} de ${max}</span></button>`}).join('');
+    return`<button class="wcard" style="--c:${sj.c}" data-w="${i}">${allDone?'<span class="medal" aria-label="medalla">🏅</span>':''}<span class="glyph">${sj.glyph}</span><span class="nm">${sj.id==='med'?'El Medio':sj.name}</span><span class="pg">✓ ${done} de ${keys.length}</span></button>`}).join('');
   h+=`<button class="wcard paint" data-x="paint"><span class="glyph"><span style="background:var(--berry)"></span><span style="background:var(--sun)"></span><span style="background:var(--leaf)"></span></span><span class="nm">Pintar</span><span class="pg">Colorea a tus amigos</span></button>`;
   h+=`<button class="wcard" style="--c:var(--tang)" data-x="instr"><span class="glyph">🎹 🥁</span><span class="nm">Instrumentos</span><span class="pg">Toca libre</span></button>`;
   const unl=CHARS.filter(isUnl);
-  h+=`<button class="wcard album" style="--c:var(--peach)" data-x="album"><span class="thumbs">${unl.slice(-6).map(c=>svgChar(c,'color')).join('')}</span><span class="nm">Mis personajes</span><span class="pg">${unl.length} de ${CHARS.length} descubiertos${nextChar()?` · el próximo en ${whereTxt(nextChar())}`:' · ¡todos!'}</span></button>`;
+  h+=`<button class="wcard album" style="--c:var(--peach)" data-x="album"><span class="thumbs">${unl.slice(-6).map(c=>svgChar(c,'color')).join('')}</span><span class="nm">Amigos de Pipo</span><span class="pg">${unl.length} de ${CHARS.length} descubiertos</span></button>`;
   $('#worlds').innerHTML=h}
+$('#nextBtn').addEventListener('click',()=>{const[a,b,c]=$('#nextBtn').dataset.r.split(',').map(Number);sfx.pop();startLevel(a,b,c)});
 $('#worlds').addEventListener('click',e=>{const b=e.target.closest('.wcard');if(!b)return;sfx.pop();
   if(b.dataset.x)return show(b.dataset.x);openSubject(+b.dataset.w)});
 
@@ -1122,26 +1500,25 @@ let curS=0;
 const lvOpen=(t,j)=>j===0||(S.stars[t.id+(j-1)]||0)>=2||(S.stars[t.id+j]||0)>0;
 function renderLevels(){const sj=SUBJ[curS];
   $('#lvls').innerHTML=(sj.id==='art'?`<button class="lvl paintlink" data-x="paint"><span class="num" style="--c:var(--sun)">🖌️</span><span class="ln">Pintar a mis amigos<span class="ls" style="font-size:15px;color:var(--soft);-webkit-text-stroke:0">Pinta libre, sin estrellas</span></span></button>`:sj.id==='mus'?`<button class="lvl paintlink" data-x="instr"><span class="num" style="--c:var(--sun)">🎹</span><span class="ln">Tocar instrumentos<span class="ls" style="font-size:15px;color:var(--soft);-webkit-text-stroke:0">Toca libre, sin estrellas</span></span></button>`:'')+
-    sj.themes.map((t,ti)=>`<h3 class="th">${t.name}</h3>`+t.levels.map((l,j)=>{const open=lvOpen(t,j);const st=S.stars[t.id+j]||0;
-    return`<button class="lvl${open?'':' locked'}" style="--c:${sj.c}" data-t="${ti}" data-l="${j}"><span class="num">${j+1}</span><span class="ln">${l.n}<span class="ls">${open?'★'.repeat(st)+'☆'.repeat(3-st):'🔒'}</span></span></button>`}).join('')).join('')}
+    sj.themes.map((t,ti)=>{const done=t.levels.filter((_,j)=>(S.stars[t.id+j]||0)>=2).length;
+      return`<div class="tcard" style="--c:${sj.c}"><button class="tplay" type="button" data-t="${ti}"><span class="tp-n">${esc(t.name)}</span><span class="tp-p">✓ ${done}/${t.levels.length}</span><span class="tp-go">▶ Jugar</span></button>
+      <div class="tlv">${t.levels.map((l,j)=>{const open=lvOpen(t,j),st=S.stars[t.id+j]||0;
+        return`<button class="lvl${open?'':' locked'}" type="button" data-t="${ti}" data-l="${j}" aria-label="${esc(l.n)}${open?', '+st+' estrellas':', cerrado'}"><span class="num">${open?j+1:'🔒'}</span><span class="ls">${open?'★'.repeat(st)+'☆'.repeat(3-st):''}</span></button>`}).join('')}</div></div>`}).join('')}
 function openSubject(si,quiet){curS=si;const sj=SUBJ[si];$('#lvTitle').textContent=sj.name;show('levels');renderLevels();
-  if(quiet){speak(pick([`¿Qué jugamos ahora, ${kid()}?`,'¡Elige otro nivel!',`¡Venga, ${kid()}, otro!`]));return}
-  const nx=nextChar();
-  speak(pick([`¡Vamos a ${sj.name}, ${kid()}!`,`¡${sj.name}! ¡Qué guay, ${kid()}!`,`¡${g('Bienvenido','Bienvenida')} a ${sj.name}, ${kid()}!`])+' '+
-    pick(['Elige un nivel.','¿Cuál te apetece?','¡Tú eliges!'])+(Math.random()<.5?' Recuerda: ¡con dos estrellas pasas de nivel, y con tres ganas amigos!':'')+
-    (nx?' '+friendTxt(nx):''))}
-$('#lvls').addEventListener('click',e=>{const b=e.target.closest('.lvl');if(!b)return;
+  speak(quiet?LINES.subjectAgain:LINES.subject(sj.name))}
+$('#lvls').addEventListener('click',e=>{const tp=e.target.closest('.tplay');if(tp){sfx.pop();const ti=+tp.dataset.t;startLevel(curS,ti,themeNext(SUBJ[curS].themes[ti]));return}
+  const b=e.target.closest('.lvl');if(!b)return;
   if(b.dataset.x){sfx.pop();show(b.dataset.x);return}
-  if(b.classList.contains('locked')){sfx.boing();b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),450);speak(`¡Ese está cerrado, ${kid()}! Primero consigue dos estrellas en el nivel de antes.`);return}
+  if(b.classList.contains('locked')){sfx.boing();b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),450);speak(LINES.locked);return}
   sfx.pop();startLevel(curS,+b.dataset.t,+b.dataset.l)});
 
 /* ---------- juego ---------- */
 let G=null;
 const curTheme=()=>SUBJ[G.si].themes[G.ti];
-function startLevel(si,ti,li){const t=SUBJ[si].themes[ti];G={si,ti,li,qs:t.levels[li].gen(),i:0,err:0,busy:false,pos:0,count:0,miss:0,streak:0};
+function startLevel(si,ti,li){const t=SUBJ[si].themes[ti];S.last=SUBJ[si].id;G={si,ti,li,qs:t.levels[li].gen(),i:0,err:0,busy:false,pos:0,count:0,miss:0,streak:0,helped:0};
   $('#gWorld').textContent=t.name;$('#gLevel').textContent=`Nivel ${li+1} · ${t.levels[li].n}`;show('game');renderQ()}
-function afterSay(q){if(!G||G.qs[G.i]!==q||cur!=='game')return;if(q.type==='simon')playSeq(q);else if(q.play)q.play()}
-function renderQ(){const q=G.qs[G.i];G.pos=0;G.count=0;G.busy=false;G.miss=0;
+function afterSay(q){if(!G||G.qs[G.i]!==q||cur!=='game')return;armStuck(q);if(q.type==='simon')playSeq(q);else if(q.play)q.play()}
+function renderQ(){const q=G.qs[G.i];G.pos=0;G.count=0;G.busy=false;G.miss=0;clearStuck();pipoSet('espera');
   $('#dots').innerHTML=G.qs.map((_,j)=>`<i class="${j<G.i?'on':j===G.i?'cur':''}"></i>`).join('');
   const pad=$('#pad');pad.className='pad'+(q.type==='simon'?' keys':'');songTok++;
   if(q.type==='trace'){$('#stage').innerHTML=`<div class="st">${traceHtml(q)}</div>`;
@@ -1155,12 +1532,12 @@ function renderQ(){const q=G.qs[G.i];G.pos=0;G.count=0;G.busy=false;G.miss=0;
     $('#stage').innerHTML=`<div class="st">${q.stage}</div>`+(q.type==='build'?`<div class="slots${q.sm?' sm':''}">${q.answer.map(a=>`<span class="slot${q.ghost?' ghost':''}">${q.ghost?a.toUpperCase():''}</span>`).join('')}</div>`:'');
     const list=q.type==='build'?q.pieces:q.opts;
     pad.innerHTML=list.map((o,k)=>`<button class="opt${q.num?' num':''}${q.ocls?' '+q.ocls:''}" data-k="${k}">${o.h}</button>`).join('')}
-  const lead=S.name&&(G.i===0||Math.random()<.4)?pick([`¡Venga, ${S.name}! `,`A ver, ${S.name}... `,`${S.name}, escucha: `,`¡Esta es para ti, ${S.name}! `,`¡Allá vamos, ${S.name}! `,`¡Atención, ${S.name}, que esta mola! `]):'';
+  const lead='';   /* el nombre se usa con moderación: no en cada pregunta */
   if(q.type==='simon')G.busy=true;
   speak(lead+q.say).then(()=>afterSay(q))}
 function replay(){if(!G)return;const q=G.qs[G.i];if(q.type==='simon'){if(!G.busy){G.pos=0;playSeq(q)}}else if(q.play)q.play();else speak(q.say)}
 $('#gSay').addEventListener('click',()=>{if(!G)return;const q=G.qs[G.i];if(q.type==='tune'){if(!G.busy)speak(G.phase==='word'?`[[${spoken(q.w)}]]`:q.say);return}if(q.type==='simon'&&G.busy)return;if(q.type==='simon')G.busy=true;speak(q.say).then(()=>afterSay(q))});
-$('#gBack').addEventListener('click',()=>{if(SS)SS.cancel();spTok++;songTok++;stopDict();sfx.pop();if(G)openSubject(G.si,true);else show('home')});
+$('#gBack').addEventListener('click',()=>{stopVoice();stopDict();sfx.pop();if(G)openSubject(G.si,true);else show('home')});
 $('#pad').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b||!G||G.busy||b.disabled)return;
   const q=G.qs[G.i];
   if(q.type==='tune'){if(b.dataset.act==='say')sayTurn(q);return}
@@ -1181,21 +1558,29 @@ $('#stage').addEventListener('click',e=>{if(!G)return;const q=G.qs[G.i];
   if(e.target.closest('.ear')){sfx.pop();replay();return}
   const o=e.target.closest('.obj');if(o&&!o.classList.contains('t')&&!o.classList.contains('gone')){G.count++;o.classList.add('t');o.dataset.n=G.count;sfx.pop();speak(nw(G.count,q.fem),{pitch:1.1});return}
   const h=e.target.closest('.hintb');if(h){h.hidden=true;const d=$('#stage .hidden-objs');if(d)d.hidden=false;sfx.pop();speak('¡Aquí tienes una pista! Cuenta los dibujitos.')}});
-function wrong(){G.err++;G.miss++;G.streak=0;sfx.boing();mascot('oops');
-  const q=G.qs[G.i];speak(G.miss>=2&&q.num?'¡Truco! Toca los dibujos para contarlos uno a uno.':WRONG())}
+function wrong(){G.err++;G.miss++;G.streak=0;sfx.boing();mascot('oops');const q=G.qs[G.i];helpStep(q,true)}
+/* bombilla: pista y, si hace falta, ejemplo guiado; en otros juegos, una ayuda adecuada */
+$('#gHelp').addEventListener('click',()=>{if(!G)return;const q=G.qs[G.i];sfx.pop();clearStuck();
+  if(q.type==='choice'||q.type==='build'){if(!G.busy)helpStep(q,false);return}
+  if(q.type==='trace'){pipoSet('explica',2500);speak('Pon el dedo en el punto verde y sigue los puntitos, sin prisa.');$$('#stage .tstart').forEach(c=>{c.classList.remove('blink');void c.getBBox();c.classList.add('blink')});return}
+  if(q.type==='simon'){if(!G.busy){G.busy=true;speak('Escucha otra vez y toca los colores en el mismo orden.').then(()=>playSeq(q))}return}
+  if(q.type==='tune'&&!G.busy)speak(G.phase==='word'?`Pulsa el botón grande y di [[${spoken(q.w)}]].`:'Toca la tecla que salta, la del dedito.')});
+$('#game').addEventListener('pointerdown',()=>{if(G&&!G.busy&&G.qs[G.i])armStuck(G.qs[G.i])},true);
 function choose(q,b){const o=q.opts[+b.dataset.k];
   if(o.ok){G.busy=true;b.classList.add('good');$$('#pad .opt').forEach(x=>{if(x!==b)x.disabled=true});success(q)}
   else{b.classList.add('bad');b.disabled=true;wrong()}}
-function buildTap(q,b){const p=q.pieces[+b.dataset.k];
+function buildTap(q,b){const p=q.pieces[+b.dataset.k];$$('#pad .aqui').forEach(x=>x.classList.remove('aqui'));
   if(p.v===q.answer[G.pos]){b.disabled=true;b.classList.add('used');const s=$$('#stage .slot')[G.pos];s.textContent=p.h;s.classList.remove('ghost');s.classList.add('full');G.pos++;sfx.pop();
     if(G.pos===q.answer.length){G.busy=true;success(q)}else speak(p.say,{pitch:1.05})}
   else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');wrong()}}
-async function success(q,doneText){sfx.ding();mascot('happy');
+async function success(q,doneText){clearStuck();sfx.ding();mascot('happy');
   $$('#stage .q').forEach(el=>{if(q.ans!==undefined)el.textContent=q.ans;el.classList.add('qa')});
   $$('#stage .res').forEach(el=>el.hidden=false);
   $$('#stage .gray').forEach(el=>el.classList.remove('gray'));$$('#stage .blank').forEach(el=>el.classList.remove('blank'));
   G.streak=(G.streak||0)+(G.miss?0:1);
-  const praise=G.streak===3?' '+STREAK():Math.random()<.65?' '+GOOD():'';
+  if(q.helped)G.helped++;
+  /* reconocer lo concreto (done) y no elogiar en cada toque */
+  const praise=q.helped?' '+LINES.withHelp():G.streak===3?' '+STREAK():Math.random()<.15?' '+GOOD():'';
   await speak((doneText||q.done)+praise);await wait(350);
   G.i++;if(G.i>=G.qs.length)finish();else renderQ()}
 
@@ -1243,21 +1628,26 @@ function finish(){const key=curTheme().id+G.li;const st=starsFor(G.err);
   const prev=S.stars[key]||0;S.stars[key]=Math.max(prev,st);G.lastSt=st;
   let fresh=[];if(st===3&&prev<3){S.prog++;if(S.prog%UNLOCK_EVERY===0){const nx=nextChar();if(nx){S.unl.push(nx.id);fresh=[nx]}}}
   if(allLevels().every(k=>S.stars[k]===3))lockedList().forEach(c=>{S.unl.push(c.id);fresh.push(c)});
-  save();showWin(st,fresh,prev===3)}
-async function showWin(st,fresh,already){const ov=$('#win');ov.hidden=false;const ok=st>=2,top=st===3;
-  $('#winT').textContent=top?pick(['¡Nivel superado!','¡Lo has conseguido!',g('¡Campeón total!','¡Campeona total!')]):ok?pick(['¡Nivel superado!','¡Muy bien!','¡Dos estrellas!']):pick(['¡Casi, casi!','¡Por un poquito!','¡Ya casi lo tienes!']);
-  const spans=$$('#winS span');spans.forEach(s=>s.classList.remove('lit'));
+  logPlay(key,st);save();showWin(st,fresh,prev===3)}
+async function showWin(st,fresh,already){const ov=$('#win');ov.hidden=false;const ok=st>=2,top=st===3,lv=curTheme().levels[G.li];SES.n++;
+  $('#winPipo').innerHTML=PIPO_SVG;pipoSet(ok?'celebra':'animo',3000);
+  $('#winT').textContent=ok?'¡Aventura superada!':'¡Casi lo tienes!';
+  const rest=P.cfg.descanso&&SES.n>=P.cfg.descanso&&!SES.sugg;if(rest)SES.sugg=1;
+  $('#winSub').textContent=`Has terminado «${lv.n}».`+(rest?' Llevamos un buen rato: ¿descansamos?':'');
+  const spans=$$('#winS span');spans.forEach(s=>s.classList.remove('lit'));$('#winStars').textContent=`${st} de 3 estrellas`;
+  const nx=nextChar();let fb='';
+  if(fresh.length)fb='<span class="slots3">🎁</span>¡Amigo nuevo para pintar!';
+  else if(nx&&!reachAll(nx)){const left=levelsLeft(nx),got=UNLOCK_EVERY-left;fb=`<span class="slots3" aria-hidden="true">${'⭐'.repeat(got)}${'○'.repeat(left)}</span>${got} de ${UNLOCK_EVERY} aventuras con 3 estrellas para el próximo amigo`}
+  $('#winFriend').innerHTML=fb;
   const hasNext=G.li+1<curTheme().levels.length;
-  $('#winAgain').textContent=ok?(top?'Otra vez':'¡A por la tercera!'):'¡Repetir!';$('#winAgain').className='btn'+(ok?'':' go');
-  $('#winNext').textContent=ok?(hasNext?'¡Siguiente nivel!':'¡Seguir!'):'Salir';$('#winNext').className='btn'+(ok?' go':'');
+  $('#winNext').textContent=ok?'▶ '+(hasNext?'Siguiente aventura':'Otra aventura'):'↻ Intentarlo otra vez';
+  $('#winAgain').hidden=!ok;$('#winBye').className='linkbtn';if(rest){$('#winBye').className='btn go2'}
   if(top){sfx.fanfare();confetti()}else if(ok)sfx.fanfare();else sfx.ding();
   for(let i=0;i<st;i++){await wait(380);spans[i].classList.add('lit');sfx.star()}
-  if(!ok){await speak(`¡Una estrella, ${kid()}! `+ALMOST());return}
-  if(!top){await speak(TWO());return}
-  await speak(THREE());
-  if(already)await speak(pick(['¡Este nivel ya lo tenías! Para descubrir amigos, prueba uno nuevo.',`¡Repasar es de ${g('listos','listas')}, ${kid()}! Pero los amigos nuevos salen en niveles nuevos.`]));
-  else if(!fresh.length&&nextChar())await speak(friendTxt(nextChar())+' Mientras, ¿por qué no pintas a tus amigos?');
-  for(const c of fresh)await presentChar(c)}
+  await speak(top?LINES.win3(lv.n):ok?LINES.win2(lv.n):LINES.win1());
+  if(ok&&already&&!fresh.length)await speak('Este nivel ya lo tenías. Los amigos nuevos salen en aventuras nuevas.');
+  for(const c of fresh)await presentChar(c);
+  if(rest&&!$('#win').hidden)speak(LINES.rest)}
 /* ventana emergente del personaje nuevo: aparece, se presenta y se cierra sola */
 async function presentChar(c){const ov=$('#newChar');
   $('#ncArt').innerHTML=svgChar(c,'shadow');$('#ncName').textContent='¿Quién será...?';ov.hidden=false;sfx.star();
@@ -1268,16 +1658,20 @@ async function presentChar(c){const ov=$('#newChar');
 $('#newChar').addEventListener('click',()=>{$('#newChar').hidden=true;if(SS)SS.cancel()});
 $('#winAgain').addEventListener('click',()=>{$('#win').hidden=true;sfx.pop();startLevel(G.si,G.ti,G.li)});
 $('#winNext').addEventListener('click',()=>{$('#win').hidden=true;sfx.pop();
-  if(G.lastSt>=2&&G.li+1<curTheme().levels.length)startLevel(G.si,G.ti,G.li+1);else openSubject(G.si,true)});
+  if(G.lastSt<2){startLevel(G.si,G.ti,G.li);return}
+  if(G.li+1<curTheme().levels.length){startLevel(G.si,G.ti,G.li+1);return}
+  const r=recNext();startLevel(r.si,r.ti,r.li)});
+$('#winHome').addEventListener('click',()=>{$('#win').hidden=true;sfx.pop();show('home')});
+$('#winBye').addEventListener('click',()=>{sfx.pop();goodbye()});
 
 const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-function confetti(){if(reduce)return;const c=$('#fx'),x=c.getContext('2d'),d=window.devicePixelRatio||1;
+function confetti(){if(reduce||P.cfg.calma)return;const c=$('#fx'),x=c.getContext('2d'),d=window.devicePixelRatio||1;
   c.width=innerWidth*d;c.height=innerHeight*d;x.setTransform(d,0,0,d,0,0);
   const cols=['#FFC93C','#FF5D8F','#2FC28A','#8A6CFF','#4FA3FF','#FF9F43'];
-  const P=Array.from({length:110},()=>({x:innerWidth/2+(Math.random()-.5)*80,y:innerHeight*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,
+  const PZ=Array.from({length:110},()=>({x:innerWidth/2+(Math.random()-.5)*80,y:innerHeight*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,
     r:4+Math.random()*6,c:pick(cols),a:Math.random()*6,s:(Math.random()-.5)*.3}));
   const t0=performance.now();
-  (function f(t){x.clearRect(0,0,innerWidth,innerHeight);P.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=p.s;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r,-p.r/2,p.r*2,p.r);x.restore()});
+  (function f(t){x.clearRect(0,0,innerWidth,innerHeight);PZ.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=p.s;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r,-p.r/2,p.r*2,p.r);x.restore()});
     if(t-t0<2600)requestAnimationFrame(f);else x.clearRect(0,0,innerWidth,innerHeight)})(t0)}
 
 /* ---------- álbum ---------- */
@@ -1294,7 +1688,7 @@ const PAL=[['rojo','#FF4D4D'],['naranja','#FF9F43'],['amarillo','#FFD93D'],['ver
   ['morado','#8A6CFF'],['rosa','#FF7FB0'],['marrón','#A0673D'],['gris','#B8C0D6'],['negro','#22306B'],['blanco','#FFFFFF']];
 let pc=CHARS[0],color=PAL[0][1],brushMode=false;
 /* trazos de pincel: se guardan aparte ('pipo-brush-v1', id → dataURL), reducidos a 400 px como mucho */
-const BKEY='pipo-brush-v1';let brushMem={},brushLoading=false;
+const BKEY=ME&&ME.id!=='p1'?'pipo-brush-v1@'+ME.id:'pipo-brush-v1';let brushMem={},brushLoading=false;
 try{const t=localStorage.getItem(BKEY);if(t){const o=JSON.parse(t);if(o&&typeof o==='object')brushMem=o}}catch(e){}
 function saveBrush(){try{localStorage.setItem(BKEY,JSON.stringify(brushMem))}catch(e){}}
 $('#palette').innerHTML=PAL.map(([n,h],i)=>`<button class="sw${i===0?' on':''}" style="background:${h}" data-i="${i}" aria-label="${n}"></button>`).join('');
@@ -1314,49 +1708,28 @@ $('#picker').addEventListener('click',e=>{const b=e.target.closest('.pk');if(!b)
   if(!isUnl(c)){sfx.boing();speak(`¡Primero tienes que descubrirlo! Supera ${whereTxt(c)}.`);return}
   keepBrush();pc=c;sfx.pop();$$('.pk').forEach(x=>x.classList.toggle('on',x===b));drawPaper();speak(`¡Vamos a pintar a ${c.name}!`)});
 $('#paintSvg').addEventListener('click',e=>{if(brushMode)return;const r=e.target.closest('.rg');if(!r)return;
-  r.setAttribute('fill',color);(S.colors[pc.id]=S.colors[pc.id]||{})[r.dataset.i]=color;save();sfx.pop()});
+  pushUndo({t:'f',id:pc.id,i:r.dataset.i,prev:(S.colors[pc.id]||{})[r.dataset.i]});r.setAttribute('fill',color);(S.colors[pc.id]=S.colors[pc.id]||{})[r.dataset.i]=color;save();sfx.pop()});
 function setMode(b){brushMode=b;$('#mFill').classList.toggle('on',!b);$('#mBrush').classList.toggle('on',b);$('#paper').classList.toggle('brush',b);sfx.pop();
   speak(b?'¡Modo pincel! Pinta con el dedo.':'¡Modo rellenar! Toca una parte del dibujo.')}
 $('#mFill').addEventListener('click',()=>setMode(false));$('#mBrush').addEventListener('click',()=>setMode(true));
 (function(){const cv=$('#brush');let down=false,lx=0,ly=0;
   const pos=e=>{const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
-  cv.addEventListener('pointerdown',e=>{if(!brushMode)return;down=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}[lx,ly]=pos(e);line(lx,ly,lx+.1,ly+.1)});
+  cv.addEventListener('pointerdown',e=>{if(!brushMode)return;try{pushUndo({t:'b',id:pc.id,img:cv.getContext('2d').getImageData(0,0,cv.width,cv.height)})}catch(_){}down=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}[lx,ly]=pos(e);line(lx,ly,lx+.1,ly+.1)});
   cv.addEventListener('pointermove',e=>{if(!down)return;const[x,y]=pos(e);line(lx,ly,x,y);lx=x;ly=y});
   const up=()=>{if(down){down=false;keepBrush()}};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
   function line(a,b,c,d){const x=cv.getContext('2d');x.strokeStyle=color;x.lineWidth=14;x.lineCap='round';x.lineJoin='round';x.beginPath();x.moveTo(a,b);x.lineTo(c,d);x.stroke()}})();
 /* borrar todo: siempre se puede, con doble toque para confirmar */
 let clrArm=false,clrT=0;
-function clearLabel(){clrArm=false;clearTimeout(clrT);$('#pClear').textContent='Borrar todo'}
+function clearLabel(){clrArm=false;clearTimeout(clrT);$('#pClear').textContent='🧽 Borrar todo'}
 $('#pClear').addEventListener('click',()=>{
   if(!clrArm){clrArm=true;sfx.pop();$('#pClear').textContent='¿Seguro? Toca otra vez';speak(`¿Borramos a ${pc.name}? Toca otra vez para borrarlo todo.`);clearTimeout(clrT);clrT=setTimeout(clearLabel,4000);return}
-  delete S.colors[pc.id];save();delete brushMem[pc.id];saveBrush();drawPaper();sfx.boing();speak('¡Fuuush! Todo limpio. ¡A pintar otra vez!')});
+  pushUndo({t:'c',id:pc.id,colors:JSON.parse(JSON.stringify(S.colors[pc.id]||{})),brush:brushMem[pc.id]||null});
+  delete S.colors[pc.id];save();delete brushMem[pc.id];saveBrush();drawPaper();sfx.pop();speak('Todo limpio. Si te arrepientes, toca «Deshacer».')});
 window.addEventListener('resize',()=>{if(cur==='paint'){keepBrush();sizeCanvas()}});
 
-/* ---------- ajustes ---------- */
-function fillVoices(){const sel=$('#voiceSel');if(!sel)return;
-  if(!voices.length){sel.innerHTML='<option>Sin voces en español</option>';$('#voiceNote').textContent='Este móvil no tiene voz en español. Instálala en Ajustes › Accesibilidad › Texto a voz (en Android, «Servicios de voz de Google»).';return}
-  $('#voiceNote').textContent='Las voces con «Natural», «Online» o «Google» en el nombre suenan menos a robot.';
-  const c=curVoice();sel.innerHTML=voices.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}"${c&&v.name===c.name?' selected':''}>${v.name} (${v.lang})</option>`).join('')}
-$('#gear').addEventListener('click',()=>{sfx.pop();openGate()});
-/* filtro para mayores: una suma de dos números entre 11 y 29 */
-let gateSum=0;
-function openGate(){const a=11+rnd(19),b=11+rnd(19);gateSum=a+b;$('#gateQ').textContent=`¿Cuánto es ${a} + ${b}?`;$('#gateIn').value='';$('#gateErr').hidden=true;$('#gate').hidden=false;
-  setTimeout(()=>{try{$('#gateIn').focus()}catch(e){}},60)}
-$('#gateForm').addEventListener('submit',e=>{e.preventDefault();
-  if(+$('#gateIn').value===gateSum){$('#gate').hidden=true;openSettings();return}
-  $('#gateErr').hidden=false;const f=$('#gateForm');f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');try{$('#gateIn').select()}catch(_){}});
-$('#gateNo').addEventListener('click',()=>{$('#gate').hidden=true;sfx.pop()});
-function openSettings(){loadVoices();$('#rateIn').value=S.rate;$('#pitchIn').value=S.pitch;resetArm=false;$('#resetBtn').textContent='Borrar progreso';paintG();$('#settings').hidden=false}
-$('#voiceSel').addEventListener('change',e=>{S.voice=e.target.value;save()});
-$('#rateIn').addEventListener('input',e=>{S.rate=+e.target.value;save()});
-$('#pitchIn').addEventListener('input',e=>{S.pitch=+e.target.value;save()});
-$('#testVoice').addEventListener('click',()=>speak('¡Hola! Soy Pipo. ¿A que no sueno nada a robot? Bip bup... ¡es broma!'));
-let resetArm=false;
-$('#resetBtn').addEventListener('click',()=>{if(!resetArm){resetArm=true;$('#resetBtn').textContent='¿Seguro? Toca otra vez';return}
-  S.stars={};S.colors={};S.unl=[];S.prog=0;save();brushMem={};saveBrush();resetArm=false;$('#resetBtn').textContent='Progreso borrado';renderHome()});
-$('#closeSet').addEventListener('click',()=>{$('#settings').hidden=true;sfx.pop();renderHome()});
+/* ---------- ajustes: ahora en el área de mayores (bloque del rediseño) ---------- */
 
-drawMinis();
+drawMinis();initRediseno();
 })();
 </script>
 

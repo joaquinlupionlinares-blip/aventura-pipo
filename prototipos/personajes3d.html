@@ -38,8 +38,12 @@
 </main>
 <script src="../vendor/three.min.js"></script>
 <script>
-  // ?v=1 carga la versión anterior (estilo juguete) para comparar
-  document.write('<script src="personajes3d' + (/[?&]v=1/.test(location.search) ? '-v1' : '') + '.js"><\/script>');
+  // ?v=1 / ?v=2 cargan las versiones anteriores para comparar; la v3 carga además el cielo de luz/
+  (function () {
+    var v = (location.search.match(/[?&]v=(\d)/) || [])[1];
+    if (!v || v === '3') document.write('<script src="luz/kloofendal_48d_partly_cloudy_puresky_1k.js"><\/script>');
+    document.write('<script src="personajes3d' + (v === '1' || v === '2' ? '-v' + v : '') + '.js"><\/script>');
+  })();
 </script>
 <script>
 (function () {
@@ -79,7 +83,8 @@
   }
   interruptor('habla', function (si) { hablando = si; pjs.forEach(function (p) { p.hablar(si); }); });
   interruptor('calma', function (si) { calma = si; pjs.forEach(function (p) { p.calma(si); }); });
-  interruptor('fondo', function (si) { opciones = si ? { fondo: 'fondo-prueba.png' } : {}; crearTodos(); });
+  var fondoUrl = (location.search.match(/[?&]fondoUrl=([^&]+)/) || [])[1];
+  interruptor('fondo', function (si) { opciones = si ? { fondo: fondoUrl ? decodeURIComponent(fondoUrl) : 'fondo-prueba.png' } : {}; crearTodos(); });
   if (/[?&]fondo=1/.test(location.search)) document.getElementById('fondo').click();
 })();
 </script>
